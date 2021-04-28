@@ -64,7 +64,7 @@ public class ArticleDto {
         article.setDescription(articleDto.getDescription());
         article.setPromo(articleDto.isPromo());
         article.setPhoto(articleDto.getPhoto());
-        article.setCategory(article.getCategory());
+        article.setCategory(CategoryDto.fromDtoToEntity(articleDto.getCategoryDto()));
 
         return article;
     }

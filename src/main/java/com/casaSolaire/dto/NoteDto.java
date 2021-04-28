@@ -47,6 +47,8 @@ public class NoteDto {
         note.setReference(noteDto.getReference());
         note.setNombreEtoile(noteDto.getNombreEtoile());
         note.setObservation(note.getObservation());
+        note.setArticle(ArticleDto.fromDtoToEntity(noteDto.getArticleDto()));
+        note.setUtilisateur(UtilisateurDto.fromDtoToEntity(noteDto.getUtilisateurDto()));
 
         return note;
     }

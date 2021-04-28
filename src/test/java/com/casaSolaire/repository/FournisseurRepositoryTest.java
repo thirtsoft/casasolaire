@@ -1,6 +1,7 @@
 package com.casaSolaire.repository;
 
-import com.casaSolaire.dto.FournisseurDto;
+import com.casaSolaire.models.Article;
+import com.casaSolaire.models.Fournisseur;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,7 +23,13 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void testCreateFournisseur() {
-        String reference = "CLT1";
+        String reference = "Art1";
+        String designation = "Article1";
+        Article articleDto = new Article();
+        articleDto.setReference(reference);
+        articleDto.setDesignation(designation);
+
+        String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
@@ -31,8 +38,8 @@ public class FournisseurRepositoryTest {
         String town = "City";
         String rue = "rue";
 
-        FournisseurDto fournisseurDto = new FournisseurDto();
-        fournisseurDto.setReference(reference);
+        Fournisseur fournisseurDto = new Fournisseur();
+        fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
         fournisseurDto.setEmail(email);
@@ -40,12 +47,9 @@ public class FournisseurRepositoryTest {
         fournisseurDto.setCity(city);
         fournisseurDto.setTown(town);
         fournisseurDto.setRue(rue);
+        fournisseurDto.setArticle(articleDto);
 
-        FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(
-                fournisseurRepository.save(
-                        FournisseurDto.fromDtoToEntity(fournisseurDto)
-                )
-        );
+        Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
 
         assertNotNull(fournisseurDtoResult);
 
@@ -54,30 +58,25 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateFournisseur() {
-        String reference = "CLT1";
+        String reference = "Art1";
+        String designation = "Article1";
+        Article articleDto = new Article();
+        articleDto.setReference(reference);
+        articleDto.setDesignation(designation);
+
+        String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
-        String telephone = "779440310";
-        String city = "USA";
-        String town = "City";
-        String rue = "rue";
 
-        FournisseurDto fournisseurDto = new FournisseurDto();
-        fournisseurDto.setReference(reference);
+        Fournisseur fournisseurDto = new Fournisseur();
+        fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
         fournisseurDto.setEmail(email);
-        fournisseurDto.setTelephone(telephone);
-        fournisseurDto.setCity(city);
-        fournisseurDto.setTown(town);
-        fournisseurDto.setRue(rue);
+        fournisseurDto.setArticle(articleDto);
 
-        FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(
-                fournisseurRepository.save(
-                        FournisseurDto.fromDtoToEntity(fournisseurDto)
-                )
-        );
+        Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
 
         String firstName1 = "TairouDiallo";
         String lastName1 = "diallodiallo";
@@ -85,7 +84,7 @@ public class FournisseurRepositoryTest {
         fournisseurDto.setLastName(lastName1);
         fournisseurDto.setId((long) 1);
 
-        FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(fournisseurDto)));
+        fournisseurRepository.save(fournisseurDto);
 
         assertThat(fournisseurDto.getFirstName()).isEqualTo(firstName1);
 
@@ -93,30 +92,26 @@ public class FournisseurRepositoryTest {
 
     @Test
     public void testFindById() {
-        String reference = "CLT1";
+        String reference = "Art1";
+        String designation = "Article1";
+        Article articleDto = new Article();
+        articleDto.setReference(reference);
+        articleDto.setDesignation(designation);
+
+        String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
-        String telephone = "779440310";
-        String city = "USA";
-        String town = "City";
-        String rue = "rue";
 
-        FournisseurDto fournisseurDto = new FournisseurDto();
-        fournisseurDto.setReference(reference);
+        Fournisseur fournisseurDto = new Fournisseur();
+        fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
         fournisseurDto.setEmail(email);
-        fournisseurDto.setTelephone(telephone);
-        fournisseurDto.setCity(city);
-        fournisseurDto.setTown(town);
-        fournisseurDto.setRue(rue);
+        fournisseurDto.setArticle(articleDto);
 
-        FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(
-                fournisseurRepository.save(
-                        FournisseurDto.fromDtoToEntity(fournisseurDto)
-                )
-        );
+        Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
+
 
         boolean isExitFournisseur = fournisseurRepository.findById(fournisseurDtoResult.getId()).isPresent();
 
@@ -126,44 +121,35 @@ public class FournisseurRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String reference = "CLT1";
+        String reference = "Art1";
+        String designation = "Article1";
+        Article articleDto = new Article();
+        articleDto.setReference(reference);
+        articleDto.setDesignation(designation);
+
+        String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
-        String telephone = "779440310";
-        String city = "USA";
-        String town = "City";
-        String rue = "rue";
 
-        FournisseurDto fournisseurDto = new FournisseurDto();
-        fournisseurDto.setReference(reference);
+        Fournisseur fournisseurDto = new Fournisseur();
+        fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
         fournisseurDto.setEmail(email);
-        fournisseurDto.setTelephone(telephone);
-        fournisseurDto.setCity(city);
-        fournisseurDto.setTown(town);
-        fournisseurDto.setRue(rue);
+        fournisseurDto.setArticle(articleDto);
 
-        FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(
-                fournisseurRepository.save(
-                        FournisseurDto.fromDtoToEntity(fournisseurDto)
-                )
-        );
+        Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
 
         String reference1 = "CLT1";
         String firstName1 = "tairou";
         String lastName1 = "diallo";
-        FournisseurDto fournisseurDto1 = new FournisseurDto();
+        Fournisseur fournisseurDto1 = new Fournisseur();
         fournisseurDto1.setReference(reference);
         fournisseurDto1.setFirstName(firstName);
         fournisseurDto1.setLastName(lastName);
 
-        FournisseurDto fournisseurDtoResult1 = FournisseurDto.fromEntityToDto(
-                fournisseurRepository.save(
-                        FournisseurDto.fromDtoToEntity(fournisseurDto1)
-                )
-        );
+        fournisseurRepository.save(fournisseurDto1);
 
         List<?> fournisseurs = fournisseurRepository.findAll();
 
@@ -174,30 +160,25 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        String reference = "CLT1";
+        String reference = "Art1";
+        String designation = "Article1";
+        Article articleDto = new Article();
+        articleDto.setReference(reference);
+        articleDto.setDesignation(designation);
+
+        String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
-        String telephone = "779440310";
-        String city = "USA";
-        String town = "City";
-        String rue = "rue";
 
-        FournisseurDto fournisseurDto = new FournisseurDto();
-        fournisseurDto.setReference(reference);
+        Fournisseur fournisseurDto = new Fournisseur();
+        fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
         fournisseurDto.setEmail(email);
-        fournisseurDto.setTelephone(telephone);
-        fournisseurDto.setCity(city);
-        fournisseurDto.setTown(town);
-        fournisseurDto.setRue(rue);
+        fournisseurDto.setArticle(articleDto);
 
-        FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(
-                fournisseurRepository.save(
-                        FournisseurDto.fromDtoToEntity(fournisseurDto)
-                )
-        );
+        Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
 
         boolean isExistBeforeDelete = fournisseurRepository.findById(fournisseurDtoResult.getId()).isPresent();
 

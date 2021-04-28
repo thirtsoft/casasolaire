@@ -1,17 +1,12 @@
 package com.casaSolaire.dto;
 
 import com.casaSolaire.enums.Status;
-import com.casaSolaire.models.Article;
-import com.casaSolaire.models.Client;
 import com.casaSolaire.models.Commande;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
 import java.time.LocalDate;
 
 @Data
@@ -54,6 +49,7 @@ public class CommandeDto {
         commande.setTotal(commandeDto.getTotal());
         commande.setDateCommande(commandeDto.getDateCommande());
         commande.setStatus(commandeDto.getStatus());
+        commande.setClient(ClientDto.fromDtoToEntity(commandeDto.getClientDto()));
 
         return commande;
     }

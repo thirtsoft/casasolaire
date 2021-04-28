@@ -1,6 +1,6 @@
 package com.casaSolaire.repository;
 
-import com.casaSolaire.dto.ClientDto;
+import com.casaSolaire.models.Client;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -28,7 +28,7 @@ public class ClientRepositoryTest {
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
         String address = "USA";
-        ClientDto clientDto = new ClientDto();
+        Client clientDto = new Client();
         clientDto.setReference(reference);
         clientDto.setFirstName(firstName);
         clientDto.setLastName(lastName);
@@ -36,11 +36,7 @@ public class ClientRepositoryTest {
         clientDto.setMobile(mobile);
         clientDto.setAddress(address);
 
-        ClientDto clientDtoResult = ClientDto.fromEntityToDto(
-                clientRepository.save(
-                        ClientDto.fromDtoToEntity(clientDto)
-                )
-        );
+        Client clientDtoResult = clientRepository.save(clientDto);
 
         assertNotNull(clientDtoResult);
 
@@ -55,7 +51,7 @@ public class ClientRepositoryTest {
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
         String address = "USA";
-        ClientDto clientDto = new ClientDto();
+        Client clientDto = new Client();
         clientDto.setReference(reference);
         clientDto.setFirstName(firstName);
         clientDto.setLastName(lastName);
@@ -63,11 +59,7 @@ public class ClientRepositoryTest {
         clientDto.setMobile(mobile);
         clientDto.setAddress(address);
 
-        ClientDto clientDtoResult = ClientDto.fromEntityToDto(
-                clientRepository.save(
-                        ClientDto.fromDtoToEntity(clientDto)
-                )
-        );
+        Client clientDtoResult = clientRepository.save(clientDto);
 
         String firstName1 = "TairouDiallo";
         String lastName1 = "diallodiallo";
@@ -75,7 +67,7 @@ public class ClientRepositoryTest {
         clientDto.setLastName(lastName1);
         clientDto.setId((long) 1);
 
-        ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(clientDto)));
+        clientRepository.save(clientDto);
 
         assertThat(clientDto.getFirstName()).isEqualTo(firstName1);
 
@@ -89,7 +81,7 @@ public class ClientRepositoryTest {
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
         String address = "USA";
-        ClientDto clientDto = new ClientDto();
+        Client clientDto = new Client();
         clientDto.setReference(reference);
         clientDto.setFirstName(firstName);
         clientDto.setLastName(lastName);
@@ -97,11 +89,7 @@ public class ClientRepositoryTest {
         clientDto.setMobile(mobile);
         clientDto.setAddress(address);
 
-        ClientDto clientDtoResult = ClientDto.fromEntityToDto(
-                clientRepository.save(
-                        ClientDto.fromDtoToEntity(clientDto)
-                )
-        );
+        Client clientDtoResult = clientRepository.save(clientDto);
 
         boolean isExitClient = clientRepository.findById(clientDtoResult.getId()).isPresent();
 
@@ -117,7 +105,7 @@ public class ClientRepositoryTest {
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
         String address = "USA";
-        ClientDto clientDto = new ClientDto();
+        Client clientDto = new Client();
         clientDto.setReference(reference);
         clientDto.setFirstName(firstName);
         clientDto.setLastName(lastName);
@@ -125,25 +113,17 @@ public class ClientRepositoryTest {
         clientDto.setMobile(mobile);
         clientDto.setAddress(address);
 
-        ClientDto clientDtoResult = ClientDto.fromEntityToDto(
-                clientRepository.save(
-                        ClientDto.fromDtoToEntity(clientDto)
-                )
-        );
+        Client clientDtoResult = clientRepository.save(clientDto);
 
         String reference1 = "CLT1";
         String firstName1 = "tairou";
         String lastName1 = "diallo";
-        ClientDto clientDto1 = new ClientDto();
+        Client clientDto1 = new Client();
         clientDto1.setReference(reference1);
         clientDto1.setFirstName(firstName1);
         clientDto1.setLastName(lastName1);
 
-        ClientDto clientDtoResult1 = ClientDto.fromEntityToDto(
-                clientRepository.save(
-                        ClientDto.fromDtoToEntity(clientDto1)
-                )
-        );
+        Client clientDtoResult1 = clientRepository.save(clientDto);
 
         List<?> clients = clientRepository.findAll();
 
@@ -160,7 +140,7 @@ public class ClientRepositoryTest {
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
         String address = "USA";
-        ClientDto clientDto = new ClientDto();
+        Client clientDto = new Client();
         clientDto.setReference(reference);
         clientDto.setFirstName(firstName);
         clientDto.setLastName(lastName);
@@ -168,11 +148,7 @@ public class ClientRepositoryTest {
         clientDto.setMobile(mobile);
         clientDto.setAddress(address);
 
-        ClientDto clientDtoResult = ClientDto.fromEntityToDto(
-                clientRepository.save(
-                        ClientDto.fromDtoToEntity(clientDto)
-                )
-        );
+        Client clientDtoResult = clientRepository.save(clientDto);
 
         boolean isExistBeforeDelete = clientRepository.findById(clientDtoResult.getId()).isPresent();
 
