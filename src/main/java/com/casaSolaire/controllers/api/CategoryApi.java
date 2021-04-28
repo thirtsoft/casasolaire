@@ -36,7 +36,7 @@ public interface CategoryApi {
     })
     ResponseEntity<CategoryDto> findById(@PathVariable("idCategory") Long id);
 
-    @GetMapping(value = APP_ROOT + "/categories/{designation]", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/categories/{designation}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Category par Designation",
             notes = "Cette méthode permet de chercher une Category par sa Designation", response = CategoryDto.class
     )

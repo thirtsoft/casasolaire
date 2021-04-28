@@ -22,7 +22,7 @@ public class CategoryRepositoryTest {
     @Test
     @Rollback(false)
     public void testCreateCategory() {
-        Category categoryDto = new Category((long) 1, "pann", "Panneaux Solaire");
+        Category categoryDto = new Category(null, "pann", "Panneaux Solaire");
         Category categoryDtoResult = categoryRepository.save(categoryDto);
 
         assertNotNull(categoryDtoResult);
@@ -38,7 +38,7 @@ public class CategoryRepositoryTest {
         String categoryDesignation = "SCIE";
         Category categoryUpdateDto = new Category((long) 1, "Bureau", categoryDesignation);
 
-        categoryUpdateDto.setId((long) 1);
+        categoryUpdateDto.setId((long) 2);
         categoryRepository.save(categoryUpdateDto);
 
         assertThat(categoryUpdateDto.getDesignation()).isEqualTo(categoryDesignation);
@@ -85,6 +85,7 @@ public class CategoryRepositoryTest {
     @Rollback(false)
     public void testDelete() {
         Category categoryDto = new Category((long) 1, "Chemise", "Chemise Femme");
+
         Category categoryDtoResult2 = categoryRepository.save(categoryDto);
 
         boolean isExistBeforeDelete = categoryRepository.findById(categoryDtoResult2.getId()).isPresent();

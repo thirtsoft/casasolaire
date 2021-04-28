@@ -1,8 +1,7 @@
 package com.casaSolaire.repository;
 
 import com.casaSolaire.enums.Status;
-import com.casaSolaire.models.Client;
-import com.casaSolaire.models.Commande;
+import com.casaSolaire.models.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,22 +21,14 @@ public class CommandeRepositoryTest {
     @Autowired
     private CommandeRepository commandeRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @Test
     @Rollback(false)
     public void testCreateCommande() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        Client clientDto = new Client();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
         String number = "Com1";
         double total = 12000;
@@ -45,7 +37,7 @@ public class CommandeRepositoryTest {
         commandeDto.setNumber(number);
         commandeDto.setTotal(total);
         commandeDto.setStatus(status);
-        commandeDto.setClient(clientDto);
+        commandeDto.setClient(client);
 
         Commande commandeDtoResult = commandeRepository.save(commandeDto);
 
@@ -56,19 +48,8 @@ public class CommandeRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateCommande() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        Client clientDto = new Client();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
         String number = "Com1";
         double total = 12000;
@@ -77,34 +58,22 @@ public class CommandeRepositoryTest {
         commandeDto.setNumber(number);
         commandeDto.setTotal(total);
         commandeDto.setStatus(status);
-        commandeDto.setClient(clientDto);
+        commandeDto.setClient(client);
 
-        Commande commandeDtoResult = commandeRepository.save(commandeDto);
+       // Commande commandeDtoResult = commandeRepository.save(commandeDto);
 
-        Status status1 = Status.ENCOURS;
-        commandeDto.setStatus(status1);
-        commandeDto.setId((long) 1);
-        commandeRepository.save(commandeDto);
+        commandeDto.setId((long) 3);
 
-        assertThat(commandeDto.getStatus()).isEqualTo(status1);
+        Commande utilisateurDtoResult = commandeRepository.save(commandeDto);
+
+        assertThat(utilisateurDtoResult.getStatus()).isEqualTo(status);
 
     }
 
     @Test
     public void testFindById() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        Client clientDto = new Client();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
         String number = "Com1";
         double total = 12000;
@@ -113,7 +82,7 @@ public class CommandeRepositoryTest {
         commandeDto.setNumber(number);
         commandeDto.setTotal(total);
         commandeDto.setStatus(status);
-        commandeDto.setClient(clientDto);
+        commandeDto.setClient(client);
 
         Commande commandeDtoResult = commandeRepository.save(commandeDto);
 
@@ -125,19 +94,8 @@ public class CommandeRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        Client clientDto = new Client();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
         String number = "Com1";
         double total = 12000;
@@ -146,43 +104,30 @@ public class CommandeRepositoryTest {
         commandeDto.setNumber(number);
         commandeDto.setTotal(total);
         commandeDto.setStatus(status);
-        commandeDto.setClient(clientDto);
-
+        commandeDto.setClient(client);
         commandeRepository.save(commandeDto);
 
-        String number1 = "Com2";
-        double total2 = 1222000;
-        Status status2 = Status.VALIDEE;
+        String number1 = "Com1";
+        double total1 = 12000;
+        Status status1 = Status.PAYEE;
         Commande commandeDto1 = new Commande();
         commandeDto1.setNumber(number1);
-        commandeDto1.setTotal(total2);
-        commandeDto1.setStatus(status2);
-        commandeDto1.setClient(clientDto);
-
+        commandeDto1.setTotal(total1);
+        commandeDto1.setStatus(status1);
+        commandeDto1.setClient(client);
         commandeRepository.save(commandeDto1);
 
-        List<?> commandes = commandeRepository.findAll();
+        List<Commande> commandeList = commandeRepository.findAll();
 
-        assertThat(commandes).size().isGreaterThan(0);
+        assertThat(commandeList).size().isGreaterThan(0);
 
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        Client clientDto = new Client();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
         String number = "Com1";
         double total = 12000;
@@ -191,7 +136,7 @@ public class CommandeRepositoryTest {
         commandeDto.setNumber(number);
         commandeDto.setTotal(total);
         commandeDto.setStatus(status);
-        commandeDto.setClient(clientDto);
+        commandeDto.setClient(client);
 
         Commande commandeDtoResult = commandeRepository.save(commandeDto);
 
@@ -204,6 +149,7 @@ public class CommandeRepositoryTest {
         assertTrue(isExistBeforeDelete);
 
         assertFalse(notExistAfterDelete);
+
 
     }
 

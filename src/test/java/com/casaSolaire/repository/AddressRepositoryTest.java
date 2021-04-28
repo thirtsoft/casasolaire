@@ -61,7 +61,7 @@ public class AddressRepositoryTest {
         String country1 = "Africa";
         addressDto.setTown(town1);
         addressDto.setCountry(country1);
-        addressDto.setId((long) 1);
+        addressDto.setId((long) 4);
 
         addressRepository.save(addressDto);
 
@@ -121,9 +121,9 @@ public class AddressRepositoryTest {
 
         Address addressDtoResult1 = addressRepository.save(addressDto1);
 
-        List<?> addresses = addressRepository.findAll();
+        List<Address> addresses = addressRepository.findAll();
 
-        assertThat(addresses).size().isGreaterThan(2);
+        assertThat(addresses).size().isGreaterThan(1);
 
     }
 

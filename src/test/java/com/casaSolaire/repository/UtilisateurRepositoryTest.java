@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -43,19 +44,17 @@ public class UtilisateurRepositoryTest {
         utilisateurDto.setUsername(username);
         utilisateurDto.setMobile(mobile);
 
+        utilisateurDto.setId((long) 3);
+
         Utilisateur utilisateurDtoResult = utilisateurRepository.save(utilisateurDto);
 
-        String usernameUser = "Note1111";
-        utilisateurDto.setUsername(usernameUser);
-        utilisateurDto.setId((long) 1);
-        utilisateurRepository.save(utilisateurDto);
-
-        assertThat(utilisateurDto.getUsername()).isEqualTo(usernameUser);
+        assertThat(utilisateurDtoResult.getUsername()).isEqualTo(username);
 
     }
 
     @Test
     public void testFindById() {
+
         String username = "thir";
         String mobile = "779440310";
         Utilisateur utilisateurDto = new Utilisateur();
@@ -67,6 +66,7 @@ public class UtilisateurRepositoryTest {
         boolean isExistUser = utilisateurRepository.findById(utilisateurDtoResult.getId()).isPresent();
 
         assertTrue(isExistUser);
+
 
     }
 
@@ -88,7 +88,7 @@ public class UtilisateurRepositoryTest {
 
         utilisateurRepository.save(utilisateurDto1);
 
-        List<?> users = utilisateurRepository.findAll();
+        List<Utilisateur> users = utilisateurRepository.findAll();
 
         assertThat(users).size().isGreaterThan(0);
 

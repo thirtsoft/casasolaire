@@ -11,7 +11,7 @@ import org.springframework.test.annotation.Rollback;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -20,14 +20,14 @@ public class FournisseurRepositoryTest {
     @Autowired
     private FournisseurRepository fournisseurRepository;
 
+    @Autowired
+    private ArticleRepository articleRepository;
+
     @Test
     @Rollback(false)
     public void testCreateFournisseur() {
-        String reference = "Art1";
-        String designation = "Article1";
-        Article articleDto = new Article();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 2;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
         String referenceFour = "CLT1";
         String firstName = "tairou";
@@ -37,7 +37,6 @@ public class FournisseurRepositoryTest {
         String city = "USA";
         String town = "City";
         String rue = "rue";
-
         Fournisseur fournisseurDto = new Fournisseur();
         fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
@@ -47,7 +46,7 @@ public class FournisseurRepositoryTest {
         fournisseurDto.setCity(city);
         fournisseurDto.setTown(town);
         fournisseurDto.setRue(rue);
-        fournisseurDto.setArticle(articleDto);
+        fournisseurDto.setArticle(article);
 
         Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
 
@@ -58,60 +57,41 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateFournisseur() {
-        String reference = "Art1";
-        String designation = "Article1";
-        Article articleDto = new Article();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
         String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-
         Fournisseur fournisseurDto = new Fournisseur();
         fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
-        fournisseurDto.setEmail(email);
-        fournisseurDto.setArticle(articleDto);
+        fournisseurDto.setArticle(article);
+
+        fournisseurDto.setId((long) 3);
 
         Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
 
-        String firstName1 = "TairouDiallo";
-        String lastName1 = "diallodiallo";
-        fournisseurDto.setFirstName(firstName1);
-        fournisseurDto.setLastName(lastName1);
-        fournisseurDto.setId((long) 1);
-
-        fournisseurRepository.save(fournisseurDto);
-
-        assertThat(fournisseurDto.getFirstName()).isEqualTo(firstName1);
+        assertThat(fournisseurDtoResult.getFirstName()).isEqualTo(firstName);
 
     }
 
     @Test
     public void testFindById() {
-        String reference = "Art1";
-        String designation = "Article1";
-        Article articleDto = new Article();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
         String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-
         Fournisseur fournisseurDto = new Fournisseur();
         fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
-        fournisseurDto.setEmail(email);
-        fournisseurDto.setArticle(articleDto);
+        fournisseurDto.setArticle(article);
 
         Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
-
 
         boolean isExitFournisseur = fournisseurRepository.findById(fournisseurDtoResult.getId()).isPresent();
 
@@ -121,62 +101,40 @@ public class FournisseurRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String reference = "Art1";
-        String designation = "Article1";
-        Article articleDto = new Article();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
         String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-
         Fournisseur fournisseurDto = new Fournisseur();
         fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
-        fournisseurDto.setEmail(email);
-        fournisseurDto.setArticle(articleDto);
+        fournisseurDto.setArticle(article);
 
-        Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
+        fournisseurRepository.save(fournisseurDto);
 
-        String reference1 = "CLT1";
-        String firstName1 = "tairou";
-        String lastName1 = "diallo";
-        Fournisseur fournisseurDto1 = new Fournisseur();
-        fournisseurDto1.setReference(reference);
-        fournisseurDto1.setFirstName(firstName);
-        fournisseurDto1.setLastName(lastName);
+        List<Fournisseur> fournisseurList = fournisseurRepository.findAll();
 
-        fournisseurRepository.save(fournisseurDto1);
-
-        List<?> fournisseurs = fournisseurRepository.findAll();
-
-        assertThat(fournisseurs).size().isGreaterThan(0);
+        assertThat(fournisseurList).size().isGreaterThan(0);
 
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        String reference = "Art1";
-        String designation = "Article1";
-        Article articleDto = new Article();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
         String referenceFour = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-
         Fournisseur fournisseurDto = new Fournisseur();
         fournisseurDto.setReference(referenceFour);
         fournisseurDto.setFirstName(firstName);
         fournisseurDto.setLastName(lastName);
-        fournisseurDto.setEmail(email);
-        fournisseurDto.setArticle(articleDto);
+        fournisseurDto.setArticle(article);
 
         Fournisseur fournisseurDtoResult = fournisseurRepository.save(fournisseurDto);
 
@@ -189,6 +147,7 @@ public class FournisseurRepositoryTest {
         assertTrue(isExistBeforeDelete);
 
         assertFalse(notExistAfterDelete);
+
 
     }
 

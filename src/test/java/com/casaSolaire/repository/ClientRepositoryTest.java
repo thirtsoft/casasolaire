@@ -51,25 +51,16 @@ public class ClientRepositoryTest {
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
         String address = "USA";
-        Client clientDto = new Client();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
-
-        Client clientDtoResult = clientRepository.save(clientDto);
-
-        String firstName1 = "TairouDiallo";
-        String lastName1 = "diallodiallo";
-        clientDto.setFirstName(firstName1);
-        clientDto.setLastName(lastName1);
-        clientDto.setId((long) 1);
-
+        Client clientDto = new Client(null, reference, firstName, lastName, email, mobile, address);
         clientRepository.save(clientDto);
 
-        assertThat(clientDto.getFirstName()).isEqualTo(firstName1);
+        String firstName1 = "thir";
+        Client clientUpdate = new Client(null, reference, firstName1, lastName, email, mobile, address);
+
+        clientUpdate.setId((long) 2);
+        clientRepository.save(clientUpdate);
+
+        assertThat(clientUpdate.getFirstName()).isEqualTo(firstName1);
 
     }
 
@@ -105,29 +96,21 @@ public class ClientRepositoryTest {
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
         String address = "USA";
-        Client clientDto = new Client();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
-
-        Client clientDtoResult = clientRepository.save(clientDto);
+        Client clientDto = new Client(null, reference, firstName, lastName, email, mobile, address);
+        clientRepository.save(clientDto);
 
         String reference1 = "CLT1";
         String firstName1 = "tairou";
         String lastName1 = "diallo";
-        Client clientDto1 = new Client();
-        clientDto1.setReference(reference1);
-        clientDto1.setFirstName(firstName1);
-        clientDto1.setLastName(lastName1);
+        String email1 = "thirdiallo@gmail.com";
+        String mobile1 = "779440310";
+        String address1 = "USA";
+        Client clientDto1 = new Client(null, reference1, firstName1, lastName1, email1, mobile1, address1);
+        clientRepository.save(clientDto1);
 
-        Client clientDtoResult1 = clientRepository.save(clientDto);
+        List<Client> clientList = clientRepository.findAll();
 
-        List<?> clients = clientRepository.findAll();
-
-        assertThat(clients).size().isGreaterThan(1);
+        assertThat(clientList).size().isGreaterThan(0);
 
     }
 
