@@ -1,6 +1,6 @@
 package com.casaSolaire.repository;
 
-import com.casaSolaire.dto.AddressDto;
+import com.casaSolaire.models.Address;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -27,18 +27,14 @@ public class AddressRepositoryTest {
         String rue = "Rue1";
         String town = "DK";
         String country = "Africa";
-        AddressDto addressDto = new AddressDto();
+        Address addressDto = new Address();
         addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
         addressDto.setTown(town);
         addressDto.setCountry(country);
 
-        AddressDto addressDtoResult = AddressDto.fromEntityToDto(
-                addressRepository.save(
-                        AddressDto.fromDtoToEntity(addressDto)
-                )
-        );
+        Address addressDtoResult = addressRepository.save(addressDto);
 
         assertNotNull(addressDtoResult);
 
@@ -52,26 +48,22 @@ public class AddressRepositoryTest {
         String rue = "Rue1";
         String town = "DK";
         String country = "Africa";
-        AddressDto addressDto = new AddressDto();
+        Address addressDto = new Address();
         addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
         addressDto.setTown(town);
         addressDto.setCountry(country);
 
-        AddressDto addressDtoResult = AddressDto.fromEntityToDto(
-                addressRepository.save(
-                        AddressDto.fromDtoToEntity(addressDto)
-                )
-        );
+        Address addressDtoResult = addressRepository.save(addressDto);
 
         String town1 = "ZG";
         String country1 = "Africa";
         addressDto.setTown(town1);
         addressDto.setCountry(country1);
-        addressDto.setId((long) 1);
+        addressDto.setId((long) 4);
 
-        AddressDto.fromEntityToDto(addressRepository.save(AddressDto.fromDtoToEntity(addressDto)));
+        addressRepository.save(addressDto);
 
         assertThat(addressDto.getTown()).isEqualTo(town1);
 
@@ -84,18 +76,14 @@ public class AddressRepositoryTest {
         String rue = "Rue1";
         String town = "DK";
         String country = "Africa";
-        AddressDto addressDto = new AddressDto();
+        Address addressDto = new Address();
         addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
         addressDto.setTown(town);
         addressDto.setCountry(country);
 
-        AddressDto addressDtoResult = AddressDto.fromEntityToDto(
-                addressRepository.save(
-                        AddressDto.fromDtoToEntity(addressDto)
-                )
-        );
+        Address addressDtoResult = addressRepository.save(addressDto);
 
         boolean isExitAddress = addressRepository.findById(addressDtoResult.getId()).isPresent();
 
@@ -110,40 +98,32 @@ public class AddressRepositoryTest {
         String rue = "Rue1";
         String town = "DK";
         String country = "Africa";
-        AddressDto addressDto = new AddressDto();
+        Address addressDto = new Address();
         addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
         addressDto.setTown(town);
         addressDto.setCountry(country);
 
-        AddressDto addressDtoResult = AddressDto.fromEntityToDto(
-                addressRepository.save(
-                        AddressDto.fromDtoToEntity(addressDto)
-                )
-        );
+        Address addressDtoResult = addressRepository.save(addressDto);
 
         String code1 = "Add1";
         String city1 = "SEN";
         String rue1 = "Rue1";
         String town1 = "DK";
         String country1 = "Africa";
-        AddressDto addressDto1 = new AddressDto();
+        Address addressDto1 = new Address();
         addressDto1.setCode(code1);
         addressDto1.setCity(city1);
         addressDto1.setRue(rue1);
         addressDto1.setTown(town1);
         addressDto1.setCountry(country1);
 
-        AddressDto addressDtoResult1 = AddressDto.fromEntityToDto(
-                addressRepository.save(
-                        AddressDto.fromDtoToEntity(addressDto1)
-                )
-        );
+        Address addressDtoResult1 = addressRepository.save(addressDto1);
 
-        List<?> addresses = addressRepository.findAll();
+        List<Address> addresses = addressRepository.findAll();
 
-        assertThat(addresses).size().isGreaterThan(2);
+        assertThat(addresses).size().isGreaterThan(1);
 
     }
 
@@ -155,18 +135,14 @@ public class AddressRepositoryTest {
         String rue = "Rue1";
         String town = "DK";
         String country = "Africa";
-        AddressDto addressDto = new AddressDto();
+        Address addressDto = new Address();
         addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
         addressDto.setTown(town);
         addressDto.setCountry(country);
 
-        AddressDto addressDtoResult = AddressDto.fromEntityToDto(
-                addressRepository.save(
-                        AddressDto.fromDtoToEntity(addressDto)
-                )
-        );
+        Address addressDtoResult = addressRepository.save(addressDto);
 
         boolean isExistBeforeDelete = addressRepository.findById(addressDtoResult.getId()).isPresent();
 

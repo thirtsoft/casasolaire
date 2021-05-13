@@ -1,7 +1,7 @@
 package com.casaSolaire.repository;
 
-import com.casaSolaire.dto.ArticleDto;
-import com.casaSolaire.dto.CategoryDto;
+import com.casaSolaire.models.Article;
+import com.casaSolaire.models.Scategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -20,26 +20,22 @@ public class ArticleRepositoryTest {
     @Autowired
     private ArticleRepository articleRepository;
 
+    @Autowired
+    private ScategoryRepository scategoryRepository;
+
     @Test
     @Rollback(false)
-    public void testCreateCategory() {
-        CategoryDto categoryDto = new CategoryDto((long) 1, "pann", "Panneaux Solaire");
+    public void testCreateArticle() {
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
+
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
-        articleDto.setPrice(price);
-        articleDto.setDescription(description);
-        articleDto.setCategoryDto(categoryDto);
+        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", scategory);
 
-        ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
-                articleRepository.save(
-                        ArticleDto.fromDtoToEntity(articleDto)
-                )
-        );
+        Article articleDtoResult = articleRepository.save(articleDto);
 
         assertNotNull(articleDtoResult);
 
@@ -48,136 +44,94 @@ public class ArticleRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateArticle() {
-        String designationCategory = "Solaire";
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setDesignation(designationCategory);
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
-        articleDto.setPrice(price);
-        articleDto.setDescription(description);
-        articleDto.setCategoryDto(categoryDto);
 
-        ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
-                articleRepository.save(
-                        ArticleDto.fromDtoToEntity(articleDto)
-                )
-        );
+        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", scategory);
 
-        String desingationArticle = "Article2";
-        articleDto.setDesignation(desingationArticle);
-        articleDto.setId((long) 1);
-        ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(articleDto)));
+        String refArticle = "Article";
+        String designationArt = "Art";
+        articleDto.setId(3L);
+        articleDto.setReference(refArticle);
+        articleDto.setDesignation(designationArt);
 
-        assertThat(articleDto.getDesignation()).isEqualTo(desingationArticle);
+        Article articleDtoResult = articleRepository.save(articleDto);
+
+        assertThat(articleDtoResult.getReference()).isEqualTo(refArticle);
+        assertThat(articleDtoResult.getDesignation()).isEqualTo(designationArt);
+        assertThat(articleDtoResult.getCurrentPrice()).isEqualTo(articleDto.getCurrentPrice());
+        assertThat(articleDtoResult.getDescription()).isEqualTo(articleDto.getDescription());
 
     }
 
     @Test
     public void testFindById() {
-        String designationCategory = "Solaire";
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setDesignation(designationCategory);
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
+
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
-        articleDto.setPrice(price);
-        articleDto.setDescription(description);
-        articleDto.setCategoryDto(categoryDto);
+        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", scategory);
 
-        ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
-                articleRepository.save(
-                        ArticleDto.fromDtoToEntity(articleDto)
-                )
-        );
+        Article articleDtoResult = articleRepository.save(articleDto);
 
-        boolean isCategory = articleRepository.findById(articleDtoResult.getId()).isPresent();
+        boolean isExitArticle = articleRepository.findById(articleDtoResult.getId()).isPresent();
 
-        assertTrue(isCategory);
+        assertTrue(isExitArticle);
 
     }
 
     @Test
     public void testFindAll() {
-        String designationCategory = "Solaire";
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setDesignation(designationCategory);
+
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
+
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
-        articleDto.setPrice(price);
-        articleDto.setDescription(description);
-        articleDto.setCategoryDto(categoryDto);
+        Article articleDto = new Article(1L, reference, designation, price, 12000, 5, true, description, "photo", scategory);
+        articleRepository.save(articleDto);
 
-        ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
-                articleRepository.save(
-                        ArticleDto.fromDtoToEntity(articleDto)
-                )
-        );
+        String refCom = "Art1";
+        String desCom = "Article1";
+        double priceArt = 12000;
+        String descriptionArt = "blablablalba";
+        Article articleDto1 = new Article(2L, refCom, desCom, priceArt, 12000, 5, true, descriptionArt, "photo", scategory);
+        articleRepository.save(articleDto1);
 
-        String reference1 = "Art2";
-        String designation1 = "Article1";
-        double price1 = 12000;
-        String description1 = "blablablalba";
-        ArticleDto articleDto1 = new ArticleDto();
-        articleDto1.setReference(reference1);
-        articleDto1.setDesignation(designation1);
-        articleDto.setPrice(price1);
-        articleDto1.setDescription(description1);
-        articleDto1.setCategoryDto(categoryDto);
+        List<Article> articleList = articleRepository.findAll();
 
-        ArticleDto articleDtoResult1 = ArticleDto.fromEntityToDto(
-                articleRepository.save(
-                        ArticleDto.fromDtoToEntity(articleDto1)
-                )
-        );
-
-        List<?> articles = articleRepository.findAll();
-
-        assertThat(articles).size().isGreaterThan(0);
+        assertThat(articleList).size().isGreaterThan(0);
 
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        String designationCategory = "Solaire";
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setDesignation(designationCategory);
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
+
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
-        articleDto.setPrice(price);
-        articleDto.setDescription(description);
-        articleDto.setCategoryDto(categoryDto);
+        Article articleDto = new Article(1L, reference, designation, price, 12000, 5, true, description, "photo", scategory);
 
-        ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
-                articleRepository.save(
-                        ArticleDto.fromDtoToEntity(articleDto)
-                )
-        );
+        Article articleDelete = articleRepository.save(articleDto);
 
-        boolean isExistBeforeDelete = articleRepository.findById(articleDtoResult.getId()).isPresent();
+        boolean isExistBeforeDelete = articleRepository.findById(articleDelete.getId()).isPresent();
 
-        articleRepository.deleteById(articleDtoResult.getId());
+        articleRepository.deleteById(articleDelete.getId());
 
-        boolean notExistAfterDelete = articleRepository.findById(articleDtoResult.getId()).isPresent();
+        boolean notExistAfterDelete = articleRepository.findById(articleDelete.getId()).isPresent();
 
         assertTrue(isExistBeforeDelete);
 

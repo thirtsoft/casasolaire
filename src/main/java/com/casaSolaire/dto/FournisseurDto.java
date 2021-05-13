@@ -64,6 +64,7 @@ public class FournisseurDto {
         fournisseur.setCity(fournisseurDto.getCity());
         fournisseur.setTown(fournisseurDto.getTown());
         fournisseur.setRue(fournisseurDto.getRue());
+        fournisseur.setArticle(ArticleDto.fromDtoToEntity(fournisseurDto.getArticleDto()));
 
         return fournisseur;
     }

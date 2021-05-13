@@ -1,6 +1,6 @@
 package com.casaSolaire.repository;
 
-import com.casaSolaire.dto.UtilisateurDto;
+import com.casaSolaire.models.Utilisateur;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -11,6 +11,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -24,15 +25,11 @@ public class UtilisateurRepositoryTest {
     public void testCreateUtilisateur() {
         String username = "thir";
         String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        Utilisateur utilisateurDto = new Utilisateur();
         utilisateurDto.setUsername(username);
         utilisateurDto.setMobile(mobile);
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
+        Utilisateur utilisateurDtoResult = utilisateurRepository.save(utilisateurDto);
 
         assertNotNull(utilisateurDtoResult);
 
@@ -43,42 +40,33 @@ public class UtilisateurRepositoryTest {
     public void TestUpdateUtilisateur() {
         String username = "thir";
         String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        Utilisateur utilisateurDto = new Utilisateur();
         utilisateurDto.setUsername(username);
         utilisateurDto.setMobile(mobile);
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
+        utilisateurDto.setId((long) 3);
 
-        String usernameUser = "Note1111";
-        utilisateurDto.setUsername(usernameUser);
-        utilisateurDto.setId((long) 1);
-        UtilisateurDto.fromEntityToDto(utilisateurRepository.save(UtilisateurDto.fromDtoToEntity(utilisateurDto)));
+        Utilisateur utilisateurDtoResult = utilisateurRepository.save(utilisateurDto);
 
-        assertThat(utilisateurDto.getUsername()).isEqualTo(usernameUser);
+        assertThat(utilisateurDtoResult.getUsername()).isEqualTo(username);
 
     }
 
     @Test
     public void testFindById() {
+
         String username = "thir";
         String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        Utilisateur utilisateurDto = new Utilisateur();
         utilisateurDto.setUsername(username);
         utilisateurDto.setMobile(mobile);
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
+        Utilisateur utilisateurDtoResult = utilisateurRepository.save(utilisateurDto);
 
         boolean isExistUser = utilisateurRepository.findById(utilisateurDtoResult.getId()).isPresent();
 
         assertTrue(isExistUser);
+
 
     }
 
@@ -86,29 +74,21 @@ public class UtilisateurRepositoryTest {
     public void testFindAll() {
         String username = "thir";
         String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        Utilisateur utilisateurDto = new Utilisateur();
         utilisateurDto.setUsername(username);
         utilisateurDto.setMobile(mobile);
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
+        utilisateurRepository.save(utilisateurDto);
 
         String usernameUser = "thir";
         String mobileUser = "779440310";
-        UtilisateurDto utilisateurDto1 = new UtilisateurDto();
+        Utilisateur utilisateurDto1 = new Utilisateur();
         utilisateurDto1.setUsername(usernameUser);
         utilisateurDto1.setMobile(mobileUser);
 
-        UtilisateurDto utilisateurDtoResult1 = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto1)
-                )
-        );
+        utilisateurRepository.save(utilisateurDto1);
 
-        List<?> users = utilisateurRepository.findAll();
+        List<Utilisateur> users = utilisateurRepository.findAll();
 
         assertThat(users).size().isGreaterThan(0);
 
@@ -119,15 +99,11 @@ public class UtilisateurRepositoryTest {
     public void testDelete() {
         String username = "thir";
         String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        Utilisateur utilisateurDto = new Utilisateur();
         utilisateurDto.setUsername(username);
         utilisateurDto.setMobile(mobile);
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
+        Utilisateur utilisateurDtoResult = utilisateurRepository.save(utilisateurDto);
 
         boolean isExistBeforeDelete = utilisateurRepository.findById(utilisateurDtoResult.getId()).isPresent();
 
