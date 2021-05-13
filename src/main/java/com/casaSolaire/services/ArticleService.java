@@ -11,6 +11,8 @@ public interface ArticleService {
 
     ArticleDto findById(Long id);
 
+    ArticleDto findByReference(String reference);
+
     List<ArticleDto> findAll();
 
     void delete(Long id);

@@ -1,7 +1,7 @@
 package com.casaSolaire.services;
 
 import com.casaSolaire.dto.ArticleDto;
-import com.casaSolaire.dto.CategoryDto;
+import com.casaSolaire.dto.ScategoryDto;
 import com.casaSolaire.models.Article;
 import com.casaSolaire.repository.ArticleRepository;
 import com.casaSolaire.services.impl.ArticleServiceImpl;
@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -30,10 +31,10 @@ public class ArticleServiceTest {
 
     @Test
     public void CreateArticleTest() {
-        CategoryDto categoryDto = CategoryDto.builder()
+        ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
-                .designation("designation")
+                .libelle("libelle")
                 .build();
         ArticleDto articleDto = ArticleDto.builder()
                 .id(1L)
@@ -42,7 +43,7 @@ public class ArticleServiceTest {
                 .price(12000)
                 .quantity(5)
                 .photo("photo")
-                .categoryDto(categoryDto)
+                .scategoryDto(scategoryDto)
                 .build();
         Article article = ArticleDto.fromDtoToEntity(articleDto);
         when(articleRepository.save(article)).thenReturn(article);
@@ -51,7 +52,7 @@ public class ArticleServiceTest {
 
         verify(articleRepository).save(article);
         assertThat(articleDto).isNotNull();
-//        assertThat(articleDtoSavedResult).isEqualTo(articleDto);
+        assertThat(articleDtoSavedResult).isEqualTo(articleDto);
         assertThat(articleDtoSavedResult.getId()).isEqualTo(article.getId());
         assertThat(articleDtoSavedResult.getReference()).isEqualTo(article.getReference());
         assertThat(articleDtoSavedResult.getDesignation()).isEqualTo(article.getDesignation());
@@ -59,10 +60,10 @@ public class ArticleServiceTest {
 
     @Test
     public void findAllTest() {
-        CategoryDto categoryDto = CategoryDto.builder()
+        ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
-                .designation("designation")
+                .libelle("libelle")
                 .build();
         ArticleDto articleDto = ArticleDto.builder()
                 .id(1L)
@@ -71,7 +72,7 @@ public class ArticleServiceTest {
                 .price(12000)
                 .quantity(5)
                 .photo("photo")
-                .categoryDto(categoryDto)
+                .scategoryDto(scategoryDto)
                 .build();
         Article article = ArticleDto.fromDtoToEntity(articleDto);
         when(articleRepository.findAll()).thenReturn(singletonList(article));
@@ -86,10 +87,10 @@ public class ArticleServiceTest {
 
     @Test
     public void findByIdTest() {
-        CategoryDto categoryDto = CategoryDto.builder()
+        ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
-                .designation("designation")
+                .libelle("libelle")
                 .build();
         ArticleDto articleDto = ArticleDto.builder()
                 .id(1L)
@@ -98,8 +99,9 @@ public class ArticleServiceTest {
                 .price(12000)
                 .quantity(5)
                 .photo("photo")
-                .categoryDto(categoryDto)
+                .scategoryDto(scategoryDto)
                 .build();
+
         Optional<Article> article = Optional.ofNullable(ArticleDto.fromDtoToEntity(articleDto));
         when(articleRepository.findById(article.get().getId())).thenReturn(article);
 
@@ -107,8 +109,32 @@ public class ArticleServiceTest {
 
         verify(articleRepository).findById(article.get().getId());
         assertThat(articleDto).isNotNull();
-        //      assertThat(articleDtoSavedResult).isEqualTo(articleDto);
+        assertThat(articleDtoSavedResult).isEqualTo(articleDto);
         assertThat(articleDtoSavedResult.getId()).isEqualTo(article.get().getId());
+
+    }
+
+    @Test
+    public void findByReferenceTest() {
+        ArticleDto articleDto = ArticleDto.builder()
+                .id(1L)
+                .reference("Art1")
+                .designation("Art1")
+                .price(12000)
+                .quantity(5)
+                .photo("photo")
+                .build();
+
+        Optional<Article> article = Optional.ofNullable(ArticleDto.fromDtoToEntity(articleDto));
+        when(articleRepository.findArticleByReference(article.get().getReference())).thenReturn(article);
+
+        ArticleDto articleDtoSavedResult = articleService.findByReference(articleDto.getReference());
+
+        assertNotNull(articleDto);
+        verify(articleRepository).findArticleByReference(article.get().getReference());
+        assertThat(articleDto).isNotNull();
+        assertThat(articleDtoSavedResult).isEqualTo(articleDto);
+        assertThat(articleDtoSavedResult.getReference()).isEqualTo(article.get().getReference());
 
     }
 

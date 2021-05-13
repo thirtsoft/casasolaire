@@ -2,7 +2,6 @@ package com.casaSolaire.services;
 
 import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.dto.CommandeDto;
-import com.casaSolaire.enums.Status;
 import com.casaSolaire.models.Commande;
 import com.casaSolaire.repository.CommandeRepository;
 import com.casaSolaire.services.impl.CommandeServiceImpl;
@@ -39,9 +38,7 @@ public class CommandeServiceTest {
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .number("COM12")
-                .total(230000)
-                .status(Status.PAYEE)
+                .number("com2")
                 .clientDto(clientDto)
                 .build();
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
@@ -54,7 +51,7 @@ public class CommandeServiceTest {
         //    assertThat(commandeDtoSavedResult).isEqualTo(commandeDto);
         assertThat(commandeDtoSavedResult.getId()).isEqualTo(commander.getId());
         assertThat(commandeDtoSavedResult.getNumber()).isEqualTo(commander.getNumber());
-        assertThat(commandeDtoSavedResult.getClientDto()).isEqualTo(commander.getClient());
+        assertThat(commandeDtoSavedResult.getTotal()).isEqualTo(commander.getTotal());
     }
 
     @Test
@@ -67,9 +64,7 @@ public class CommandeServiceTest {
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .number("COM23")
-                .total(350000)
-                .status(Status.VALIDEE)
+                .number("com2")
                 .clientDto(clientDto)
                 .build();
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
@@ -93,9 +88,7 @@ public class CommandeServiceTest {
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .number("Com120")
-                .total(120000)
-                .status(Status.ENCOURS)
+                .number("com2")
                 .clientDto(clientDto)
                 .build();
 

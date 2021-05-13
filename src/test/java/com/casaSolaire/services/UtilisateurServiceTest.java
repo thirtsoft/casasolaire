@@ -1,5 +1,6 @@
 package com.casaSolaire.services;
 
+
 import com.casaSolaire.dto.UtilisateurDto;
 import com.casaSolaire.models.Utilisateur;
 import com.casaSolaire.repository.UtilisateurRepository;
@@ -43,10 +44,10 @@ public class UtilisateurServiceTest {
 
         verify(utilisateurRepository).save(utilisateur);
         assertThat(utilisateurDto).isNotNull();
-        //      assertThat(utilisateurDtoSavedResult).isEqualTo(utilisateurDto);
+        //assertThat(utilisateurDtoSavedResult).isEqualTo(utilisateurDto);
         assertThat(utilisateurDtoSavedResult.getId()).isEqualTo(utilisateur.getId());
         assertThat(utilisateurDtoSavedResult.getName()).isEqualTo(utilisateur.getName());
-        //    assertThat(utilisateurDtoSavedResult.getUsername()).isEqualTo(utilisateur.getUsername());
+//        assertThat(utilisateurDtoSavedResult.getUsername()).isEqualTo(utilisateur.getUsername());
     }
 
     @Test
@@ -87,7 +88,7 @@ public class UtilisateurServiceTest {
 
         verify(utilisateurRepository).findById(utilisateur.get().getId());
         assertThat(utilisateurDto).isNotNull();
-        //    assertThat(utilisateurDtoSavedResult).isEqualTo(utilisateurDto);
+//        assertThat(utilisateurDtoSavedResult).isEqualTo(utilisateurDto);
         assertThat(utilisateurDtoSavedResult.getId()).isEqualTo(utilisateur.get().getId());
 
     }

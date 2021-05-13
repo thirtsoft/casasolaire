@@ -1,5 +1,6 @@
 package com.casaSolaire.services;
 
+
 import com.casaSolaire.dto.ArticleDto;
 import com.casaSolaire.dto.NoteDto;
 import com.casaSolaire.dto.UtilisateurDto;
@@ -24,104 +25,104 @@ import static org.mockito.Mockito.when;
 public class NoteServiceTest {
 
     @InjectMocks
-    private NoteServiceImpl noteService;
+    private NoteServiceImpl notificationService;
 
     @Mock
-    private NoteRepository noteRepository;
+    private NoteRepository notificationRepository;
 
     @Test
-    public void CreateFournisseurTest() {
-        ArticleDto articleDto = ArticleDto.builder()
-                .id(1L)
-                .reference("Art")
-                .designation("Art1")
-                .build();
-        UtilisateurDto utilisateurDto = UtilisateurDto.builder()
-                .id(1L)
-                .name("name")
-                .username("username")
-                .password("passer123")
-                .build();
+    public void CreateNotificationTest() {
+        UtilisateurDto utilisateurDto = new UtilisateurDto();
+        utilisateurDto.setId(1L);
+        utilisateurDto.setUsername("username");
+        utilisateurDto.setPassword("passer123");
+
+        ArticleDto articleDto = new ArticleDto();
+        articleDto.setId(1L);
+        articleDto.setReference("Art1");
+        articleDto.setDesignation("Art1");
+
         NoteDto noteDto = NoteDto.builder()
                 .id(1L)
-                .reference("note1")
+                .reference("ref")
                 .nombreEtoile("4etoile")
+                .observation("bon")
                 .articleDto(articleDto)
                 .utilisateurDto(utilisateurDto)
                 .build();
-        Note note = NoteDto.fromDtoToEntity(noteDto);
-        when(noteRepository.save(note)).thenReturn(note);
+        Note notification = NoteDto.fromDtoToEntity(noteDto);
+        when(notificationRepository.save(notification)).thenReturn(notification);
 
-        NoteDto fournisseurDtoSavedResult = noteService.save(noteDto);
+        NoteDto noteDtoSavedResult = notificationService.save(noteDto);
 
-        verify(noteRepository).save(note);
+        verify(notificationRepository).save(notification);
         assertThat(noteDto).isNotNull();
-        //       assertThat(fournisseurDtoSavedResult).isEqualTo(fournisseurDto);
-        assertThat(fournisseurDtoSavedResult.getId()).isEqualTo(note.getId());
-        assertThat(fournisseurDtoSavedResult.getReference()).isEqualTo(note.getReference());
-        assertThat(fournisseurDtoSavedResult.getNombreEtoile()).isEqualTo(note.getNombreEtoile());
+//        assertThat(noteDtoSavedResult).isEqualTo(noteDto);
+        assertThat(noteDtoSavedResult.getId()).isEqualTo(notification.getId());
+        assertThat(noteDtoSavedResult.getReference()).isEqualTo(notification.getReference());
+        assertThat(noteDtoSavedResult.getNombreEtoile()).isEqualTo(notification.getNombreEtoile());
     }
 
     @Test
     public void findAllTest() {
-        ArticleDto articleDto = ArticleDto.builder()
-                .id(1L)
-                .reference("Art")
-                .designation("Art1")
-                .build();
         UtilisateurDto utilisateurDto = UtilisateurDto.builder()
                 .id(1L)
-                .name("name")
                 .username("username")
                 .password("passer123")
                 .build();
+        ArticleDto articleDto = ArticleDto.builder()
+                .id(1L)
+                .reference("Art1")
+                .designation("Art1")
+                .build();
         NoteDto noteDto = NoteDto.builder()
                 .id(1L)
-                .reference("note1")
+                .reference("ref")
                 .nombreEtoile("4etoile")
+                .observation("bon")
                 .articleDto(articleDto)
                 .utilisateurDto(utilisateurDto)
                 .build();
-        Note note = NoteDto.fromDtoToEntity(noteDto);
-        when(noteRepository.findAll()).thenReturn(singletonList(note));
+        Note notification = NoteDto.fromDtoToEntity(noteDto);
+        when(notificationRepository.findAll()).thenReturn(singletonList(notification));
 
-        List<NoteDto> fournisseurDtoList = noteService.findAll();
+        List<NoteDto> noteDtoList = notificationService.findAll();
 
-        assertThat(fournisseurDtoList).isNotNull();
-        assertThat(fournisseurDtoList.size()).isEqualTo(1);
-        verify(noteRepository).findAll();
-        assertThat(fournisseurDtoList.get(0)).isEqualTo(NoteDto.fromEntityToDto(note));
+        assertThat(noteDtoList).isNotNull();
+        assertThat(noteDtoList.size()).isEqualTo(1);
+        verify(notificationRepository).findAll();
+        assertThat(noteDtoList.get(0)).isEqualTo(NoteDto.fromEntityToDto(notification));
     }
 
     @Test
     public void findByIdTest() {
-        ArticleDto articleDto = ArticleDto.builder()
-                .id(1L)
-                .reference("Art")
-                .designation("Art1")
-                .build();
         UtilisateurDto utilisateurDto = UtilisateurDto.builder()
                 .id(1L)
-                .name("name")
                 .username("username")
                 .password("passer123")
                 .build();
+        ArticleDto articleDto = ArticleDto.builder()
+                .id(1L)
+                .reference("Art1")
+                .designation("Art1")
+                .build();
         NoteDto noteDto = NoteDto.builder()
                 .id(1L)
-                .reference("note1")
+                .reference("ref")
                 .nombreEtoile("4etoile")
+                .observation("bon")
                 .articleDto(articleDto)
                 .utilisateurDto(utilisateurDto)
                 .build();
-        Optional<Note> note = Optional.ofNullable(NoteDto.fromDtoToEntity(noteDto));
-        when(noteRepository.findById(note.get().getId())).thenReturn(note);
+        Optional<Note> notification = Optional.ofNullable(NoteDto.fromDtoToEntity(noteDto));
+        when(notificationRepository.findById(notification.get().getId())).thenReturn(notification);
 
-        NoteDto fournisseurDtoSavedResult = noteService.findById(noteDto.getId());
+        NoteDto noteDtoSavedResult = notificationService.findById(noteDto.getId());
 
-        verify(noteRepository).findById(note.get().getId());
+        verify(notificationRepository).findById(notification.get().getId());
         assertThat(noteDto).isNotNull();
-        //     assertThat(fournisseurDtoSavedResult).isEqualTo(fournisseurDto);
-        assertThat(fournisseurDtoSavedResult.getId()).isEqualTo(note.get().getId());
+//        assertThat(noteDtoSavedResult).isEqualTo(noteDto);
+        assertThat(noteDtoSavedResult.getId()).isEqualTo(notification.get().getId());
 
     }
 

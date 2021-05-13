@@ -1,9 +1,11 @@
 package com.casaSolaire.services;
 
+
 import com.casaSolaire.dto.CategoryDto;
-import com.casaSolaire.models.Category;
-import com.casaSolaire.repository.CategoryRepository;
-import com.casaSolaire.services.impl.CategoryServiceImpl;
+import com.casaSolaire.dto.ScategoryDto;
+import com.casaSolaire.models.Scategory;
+import com.casaSolaire.repository.ScategoryRepository;
+import com.casaSolaire.services.impl.ScategoryServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,7 +17,6 @@ import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,85 +24,72 @@ import static org.mockito.Mockito.when;
 public class ScategoryServiceTest {
 
     @InjectMocks
-    private CategoryServiceImpl categoryService;
+    private ScategoryServiceImpl scategorieService;
 
     @Mock
-    private CategoryRepository categoryRepository;
+    private ScategoryRepository scategoryRepository;
 
     @Test
-    public void CreateCategoryTest() {
-        CategoryDto categoryDto = CategoryDto.builder()
+    public void CreateScategoryTest() {
+        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+        ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
-                .designation("designation")
+                .libelle("libelle")
+                .categoryDto(categoryDto)
                 .build();
-        Category category = CategoryDto.fromDtoToEntity(categoryDto);
-        when(categoryRepository.save(category)).thenReturn(category);
+        Scategory scategory = ScategoryDto.fromDtoToEntity(scategoryDto);
+        when(scategoryRepository.save(scategory)).thenReturn(scategory);
 
-        CategoryDto categoryDtoSavedResult = categoryService.save(categoryDto);
+        ScategoryDto scategoryDtoSavedResult = scategorieService.save(scategoryDto);
 
-        verify(categoryRepository).save(category);
-        assertThat(categoryDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categoryDto);
-        assertThat(categoryDtoSavedResult.getId()).isEqualTo(category.getId());
-        assertThat(categoryDtoSavedResult.getCode()).isEqualTo(category.getCode());
-        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(category.getDesignation());
+        verify(scategoryRepository).save(scategory);
+        assertThat(scategoryDto).isNotNull();
+        assertThat(scategoryDtoSavedResult).isEqualTo(scategoryDto);
+        assertThat(scategoryDtoSavedResult.getId()).isEqualTo(scategory.getId());
+        assertThat(scategoryDtoSavedResult.getCode()).isEqualTo(scategory.getCode());
+        assertThat(scategoryDtoSavedResult.getLibelle()).isEqualTo(scategory.getLibelle());
     }
 
     @Test
     public void findAllTest() {
-        CategoryDto categorieDto = new CategoryDto();
-        categorieDto.setId(1L);
-        categorieDto.setCode("Mobile");
-        categorieDto.setDesignation("Samsung A10s");
+        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+        ScategoryDto scategoryDto = ScategoryDto.builder()
+                .id(1L)
+                .code("Mobile")
+                .libelle("Samsung A10s")
+                .categoryDto(categoryDto)
+                .build();
 
-        Category categorie = CategoryDto.fromDtoToEntity(categorieDto);
-        when(categoryRepository.findAll()).thenReturn(singletonList(categorie));
+        Scategory scategory = ScategoryDto.fromDtoToEntity(scategoryDto);
+        when(scategoryRepository.findAll()).thenReturn(singletonList(scategory));
 
-        List<CategoryDto> categories = categoryService.findAll();
+        List<ScategoryDto> scategories = scategorieService.findAll();
 
-        assertThat(categories).isNotNull();
-        assertThat(categories.size()).isEqualTo(1);
-        verify(categoryRepository).findAll();
-        assertThat(categories.get(0)).isEqualTo(CategoryDto.fromEntityToDto(categorie));
+        assertThat(scategories).isNotNull();
+        assertThat(scategories.size()).isEqualTo(1);
+        verify(scategoryRepository).findAll();
+        assertThat(scategories.get(0)).isEqualTo(ScategoryDto.fromEntityToDto(scategory));
     }
 
     @Test
     public void findByIdTest() {
-        CategoryDto categorieDto = CategoryDto.builder()
+        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+        ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
-                .designation("designation")
+                .libelle("Libelle")
+                .categoryDto(categoryDto)
                 .build();
-        Optional<Category> categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categorieDto));
-        when(categoryRepository.findById(categorie.get().getId())).thenReturn(categorie);
+        Optional<Scategory> scategorie = Optional.ofNullable(ScategoryDto.fromDtoToEntity(scategoryDto));
+        when(scategoryRepository.findById(scategorie.get().getId())).thenReturn(scategorie);
 
-        CategoryDto categoryDtoSavedResult = categoryService.findById(categorieDto.getId());
+        ScategoryDto scategoryDtoSavedResult = scategorieService.findById(scategoryDto.getId());
 
-        verify(categoryRepository).findById(categorie.get().getId());
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getId()).isEqualTo(categorie.get().getId());
-
-    }
-
-    @Test
-    public void findByDesignationTest() {
-        CategoryDto categorieDto = CategoryDto.builder()
-                .id(1L)
-                .code("123")
-                .designation("designation")
-                .build();
-        Optional<Category> categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categorieDto));
-        when(categoryRepository.findCategoryByDesignation(categorie.get().getDesignation())).thenReturn(categorie);
-
-        CategoryDto categoryDtoSavedResult = categoryService.findByDesignation(categorieDto.getDesignation());
-
-        assertNotNull(categorieDto);
-        verify(categoryRepository).findCategoryByDesignation(categorie.get().getDesignation());
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(categorie.get().getDesignation());
+        verify(scategoryRepository).findById(scategorie.get().getId());
+        assertThat(scategoryDto).isNotNull();
+        assertThat(scategoryDtoSavedResult).isEqualTo(scategoryDto);
+        assertThat(scategoryDtoSavedResult.getId()).isEqualTo(scategorie.get().getId());
 
     }
 

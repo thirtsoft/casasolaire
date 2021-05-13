@@ -1,8 +1,7 @@
 package com.casaSolaire.repository;
 
 import com.casaSolaire.models.Article;
-import com.casaSolaire.models.Category;
-import com.casaSolaire.models.Client;
+import com.casaSolaire.models.Scategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -10,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,19 +21,19 @@ public class ArticleRepositoryTest {
     private ArticleRepository articleRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private ScategoryRepository scategoryRepository;
 
     @Test
     @Rollback(false)
     public void testCreateArticle() {
         Long catId = (long) 2;
-        Category category = categoryRepository.findById(catId).orElse(null);
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
 
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", category);
+        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", scategory);
 
         Article articleDtoResult = articleRepository.save(articleDto);
 
@@ -46,34 +44,40 @@ public class ArticleRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateArticle() {
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        Article articleDto = new Article();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designation);
-        articleDto.setPrice(price);
-        articleDto.setDescription(description);
 
-        articleDto.setId((long) 3);
+        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", scategory);
+
+        String refArticle = "Article";
+        String designationArt = "Art";
+        articleDto.setId(3L);
+        articleDto.setReference(refArticle);
+        articleDto.setDesignation(designationArt);
 
         Article articleDtoResult = articleRepository.save(articleDto);
 
-        assertThat(articleDtoResult.getDesignation()).isEqualTo(designation);
+        assertThat(articleDtoResult.getReference()).isEqualTo(refArticle);
+        assertThat(articleDtoResult.getDesignation()).isEqualTo(designationArt);
+        assertThat(articleDtoResult.getCurrentPrice()).isEqualTo(articleDto.getCurrentPrice());
+        assertThat(articleDtoResult.getDescription()).isEqualTo(articleDto.getDescription());
 
     }
 
     @Test
     public void testFindById() {
-        Long catId = (long) 1;
-        Category category = categoryRepository.findById(catId).orElse(null);
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
 
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", category);
+        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", scategory);
 
         Article articleDtoResult = articleRepository.save(articleDto);
 
@@ -86,24 +90,22 @@ public class ArticleRepositoryTest {
     @Test
     public void testFindAll() {
 
-        Long catId = (long) 1;
-        Category category = categoryRepository.findById(catId).orElse(null);
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
 
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", category);
-
+        Article articleDto = new Article(1L, reference, designation, price, 12000, 5, true, description, "photo", scategory);
         articleRepository.save(articleDto);
 
-        String referenceArticle = "Art1";
-        String designationArticle = "Article1";
-        double priceArticle = 12000;
-        String descriptionArticle = "blablablalba";
-        Article articleDto2 = new Article(null, referenceArticle, designationArticle, priceArticle, 12000, 5, true, descriptionArticle, "photo", category);
-
-        articleRepository.save(articleDto2);
+        String refCom = "Art1";
+        String desCom = "Article1";
+        double priceArt = 12000;
+        String descriptionArt = "blablablalba";
+        Article articleDto1 = new Article(2L, refCom, desCom, priceArt, 12000, 5, true, descriptionArt, "photo", scategory);
+        articleRepository.save(articleDto1);
 
         List<Article> articleList = articleRepository.findAll();
 
@@ -114,14 +116,14 @@ public class ArticleRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        Long catId = (long) 1;
-        Category category = categoryRepository.findById(catId).orElse(null);
+        Long catId = (long) 2;
+        Scategory scategory = scategoryRepository.findById(catId).orElse(null);
 
         String reference = "Art1";
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", category);
+        Article articleDto = new Article(1L, reference, designation, price, 12000, 5, true, description, "photo", scategory);
 
         Article articleDelete = articleRepository.save(articleDto);
 

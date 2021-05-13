@@ -1,6 +1,5 @@
 package com.casaSolaire.controllers.api;
 
-import com.casaSolaire.dto.ArticleDto;
 import com.casaSolaire.dto.CategoryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -17,7 +16,7 @@ public interface CategoryApi {
 
     @PostMapping(value = APP_ROOT + "/categories/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer une Category",
-            notes = "Cette méthode permet d'enregistrer et modifier une Category", response = CategoryDto.class )
+            notes = "Cette méthode permet d'enregistrer et modifier une Category", response = CategoryDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Category a été crée / modifié"),
             @ApiResponse(code = 400, message = "Aucun Category  crée / modifié")
@@ -57,7 +56,7 @@ public interface CategoryApi {
 
     @DeleteMapping(value = APP_ROOT + "/categories/delete/{idCategory}")
     @ApiOperation(value = "Supprimer une Category par son ID",
-            notes = "Cette méthode permet de supprimer une Category par son ID", response = CategoryDto.class )
+            notes = "Cette méthode permet de supprimer une Category par son ID", response = CategoryDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Category a été supprimé")
     })

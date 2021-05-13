@@ -49,7 +49,7 @@ public class NoteDto {
         note.setObservation(note.getObservation());
         note.setArticle(ArticleDto.fromDtoToEntity(noteDto.getArticleDto()));
         note.setUtilisateur(UtilisateurDto.fromDtoToEntity(noteDto.getUtilisateurDto()));
-
+        
         return note;
     }
 }

@@ -1,5 +1,6 @@
 package com.casaSolaire.services;
 
+
 import com.casaSolaire.dto.ArticleDto;
 import com.casaSolaire.dto.FournisseurDto;
 import com.casaSolaire.models.Fournisseur;
@@ -50,7 +51,7 @@ public class FournisseurServiceTest {
 
         verify(fournisseurRepository).save(fournisseur);
         assertThat(fournisseurDto).isNotNull();
-        //       assertThat(fournisseurDtoSavedResult).isEqualTo(fournisseurDto);
+        assertThat(fournisseurDtoSavedResult).isEqualTo(fournisseurDto);
         assertThat(fournisseurDtoSavedResult.getId()).isEqualTo(fournisseur.getId());
         assertThat(fournisseurDtoSavedResult.getReference()).isEqualTo(fournisseur.getReference());
         assertThat(fournisseurDtoSavedResult.getFirstName()).isEqualTo(fournisseur.getFirstName());
@@ -105,7 +106,7 @@ public class FournisseurServiceTest {
 
         verify(fournisseurRepository).findById(fournisseur.get().getId());
         assertThat(fournisseurDto).isNotNull();
-        //     assertThat(fournisseurDtoSavedResult).isEqualTo(fournisseurDto);
+        assertThat(fournisseurDtoSavedResult).isEqualTo(fournisseurDto);
         assertThat(fournisseurDtoSavedResult.getId()).isEqualTo(fournisseur.get().getId());
 
     }
