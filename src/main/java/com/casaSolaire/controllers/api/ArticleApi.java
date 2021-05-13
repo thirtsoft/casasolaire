@@ -1,6 +1,5 @@
 package com.casaSolaire.controllers.api;
 
-import com.casaSolaire.dto.AddressDto;
 import com.casaSolaire.dto.ArticleDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -17,7 +16,7 @@ public interface ArticleApi {
 
     @PostMapping(value = APP_ROOT + "/articles/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un Article",
-            notes = "Cette méthode permet d'enregistrer et modifier un Article", response = ArticleDto.class )
+            notes = "Cette méthode permet d'enregistrer et modifier un Article", response = ArticleDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'Article a été crée / modifié"),
             @ApiResponse(code = 400, message = "Aucun Address  crée / modifié")
@@ -46,7 +45,7 @@ public interface ArticleApi {
 
     @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")
     @ApiOperation(value = "Supprimer un Article par son ID",
-            notes = "Cette méthode permet de supprimer un Article par son ID", response = ArticleDto.class )
+            notes = "Cette méthode permet de supprimer un Article par son ID", response = ArticleDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'Article a été supprimé")
     })
