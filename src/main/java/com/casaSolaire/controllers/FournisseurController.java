@@ -5,11 +5,13 @@ import com.casaSolaire.dto.FournisseurDto;
 import com.casaSolaire.services.FournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class FournisseurController implements FournisseurApi {
 
     private final FournisseurService fournisseurService;

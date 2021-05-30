@@ -58,7 +58,7 @@ public class ScategoryServiceImpl implements ScategoryService {
             log.error("Scategorie Libelle is null");
         }
 
-        Optional<Scategory> scategorie = scategoryRepository.findScategorieByLibelle(libelle);
+        Optional<Scategory> scategorie = scategoryRepository.findScategoryByLibelle(libelle);
 
         return Optional.of(ScategoryDto.fromEntityToDto(scategorie.get())).orElseThrow(() ->
                 new ResourceNotFoundException(

@@ -3,11 +3,8 @@ package com.casaSolaire.services.impl;
 import com.casaSolaire.dto.AddressDto;
 import com.casaSolaire.exceptions.ResourceNotFoundException;
 import com.casaSolaire.models.Address;
-import com.casaSolaire.models.Article;
 import com.casaSolaire.repository.AddressRepository;
-import com.casaSolaire.repository.ArticleRepository;
 import com.casaSolaire.services.AddressService;
-import com.casaSolaire.services.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +19,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AddressServiceImpl implements AddressService {
 
-    @Autowired
     private final AddressRepository addressRepository;
 
+    @Autowired
     public AddressServiceImpl(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
     }

@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ScategoryRepository extends JpaRepository<Scategory, Long> {
 
-    Optional<Scategory> findScategorieByLibelle(String libelle);
+    Optional<Scategory> findScategoryByLibelle(String libelle);
 }

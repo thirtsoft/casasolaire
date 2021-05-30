@@ -1,7 +1,6 @@
 package com.casaSolaire.services;
 
 import com.casaSolaire.dto.ArticleDto;
-import com.casaSolaire.dto.CategoryDto;
 
 import java.util.List;
 
