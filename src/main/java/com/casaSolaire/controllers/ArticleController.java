@@ -28,6 +28,12 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public ResponseEntity<ArticleDto> update(Long id, ArticleDto articleDto) {
+        articleDto.setId(id);
+        return ResponseEntity.ok(articleService.save(articleDto));
+    }
+
+    @Override
     public ResponseEntity<ArticleDto> findById(Long id) {
         return ResponseEntity.ok(articleService.findById(id));
     }

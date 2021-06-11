@@ -27,6 +27,12 @@ public class ScategoryController implements ScategoryApi {
     }
 
     @Override
+    public ResponseEntity<ScategoryDto> update(Long id, ScategoryDto scategoryDto) {
+        scategoryDto.setId(id);
+        return ResponseEntity.ok(scategoryService.save(scategoryDto));
+    }
+
+    @Override
     public ResponseEntity<ScategoryDto> findById(Long id) {
         return ResponseEntity.ok(scategoryService.findById(id));
     }

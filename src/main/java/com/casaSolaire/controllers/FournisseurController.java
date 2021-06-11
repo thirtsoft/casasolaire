@@ -28,6 +28,12 @@ public class FournisseurController implements FournisseurApi {
     }
 
     @Override
+    public ResponseEntity<FournisseurDto> update(Long id, FournisseurDto fournisseurDto) {
+        fournisseurDto.setId(id);
+        return ResponseEntity.ok(fournisseurService.save(fournisseurDto));
+    }
+
+    @Override
     public ResponseEntity<FournisseurDto> findById(Long id) {
         return ResponseEntity.ok(fournisseurService.findById(id));
     }

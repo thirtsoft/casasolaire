@@ -8,6 +8,8 @@ public interface ClientService {
 
     ClientDto save(ClientDto clientDto);
 
+    ClientDto update(Long id, ClientDto clientDto);
+
     ClientDto findById(Long id);
 
     List<ClientDto> findAll();

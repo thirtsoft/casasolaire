@@ -8,6 +8,8 @@ public interface CategoryService {
 
     CategoryDto save(CategoryDto categoryDto);
 
+    CategoryDto update(Long id, CategoryDto categoryDto);
+
     CategoryDto findById(Long id);
 
     CategoryDto findByDesignation(String designation);

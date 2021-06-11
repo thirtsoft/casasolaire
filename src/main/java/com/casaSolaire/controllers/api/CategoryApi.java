@@ -18,11 +18,22 @@ public interface CategoryApi {
     @ApiOperation(value = "Enregistrer une Category",
             notes = "Cette méthode permet d'enregistrer et modifier une Category", response = CategoryDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La Category a été crée / modifié"),
+            @ApiResponse(code = 201, message = "La Category a été crée / modifié"),
             @ApiResponse(code = 400, message = "Aucun Category  crée / modifié")
 
     })
     ResponseEntity<CategoryDto> save(@RequestBody CategoryDto categoryDto);
+
+    @PutMapping(value = APP_ROOT + "/categories/update/{idCategory}",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Modifier une Category par son ID",
+            notes = "Cette méthode permet de modifier une Category par son ID", response = CategoryDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La Category a été modifiée"),
+            @ApiResponse(code = 400, message = "La Category a n'est pas modifiée")
+    })
+    ResponseEntity<CategoryDto> update(@PathVariable("idCategory") Long id, @RequestBody CategoryDto categoryDto);
+
 
     @GetMapping(value = APP_ROOT + "/categories/{idCategory}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Category par ID",

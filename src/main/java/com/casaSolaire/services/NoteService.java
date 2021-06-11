@@ -8,6 +8,8 @@ public interface NoteService {
 
     NoteDto save(NoteDto noteDto);
 
+    NoteDto update(Long id, NoteDto noteDto);
+
     NoteDto findById(Long id);
 
     List<NoteDto> findAll();

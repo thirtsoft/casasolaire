@@ -1,7 +1,5 @@
 package com.casaSolaire.controllers.api;
 
-import com.casaSolaire.dto.ClientDto;
-import com.casaSolaire.dto.CommandeDto;
 import com.casaSolaire.dto.FournisseurDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -18,13 +16,24 @@ public interface FournisseurApi {
 
     @PostMapping(value = APP_ROOT + "/fournisseurs/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un Fournisseur",
-            notes = "Cette méthode permet d'enregistrer et modifier un Fournisseur", response = FournisseurDto.class )
+            notes = "Cette méthode permet d'enregistrer et modifier un Fournisseur", response = FournisseurDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Le Fournisseur a été crée / modifié"),
+            @ApiResponse(code = 201, message = "Le Fournisseur a été crée / modifié"),
             @ApiResponse(code = 400, message = "Aucun Fournisseur  crée / modifié")
 
     })
     ResponseEntity<FournisseurDto> save(@RequestBody FournisseurDto fournisseurDto);
+
+    @PutMapping(value = APP_ROOT + "/fournisseurs/update/{idFournisseur}",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Modifier un Fournisseur par son ID",
+            notes = "Cette méthode permet de modifier un Fournisseur par son ID", response = FournisseurDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le Fournisseur a été modifiée"),
+            @ApiResponse(code = 400, message = "Le Fournisseur a n'est pas modifiée")
+    })
+    ResponseEntity<FournisseurDto> update(@PathVariable("idFournisseur") Long id, @RequestBody FournisseurDto fournisseurDto);
+
 
     @GetMapping(value = APP_ROOT + "/fournisseurs/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Fournisseur par ID",
@@ -47,7 +56,7 @@ public interface FournisseurApi {
 
     @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete/{idFournisseur}")
     @ApiOperation(value = "Supprimer un Fournisseur par son ID",
-            notes = "Cette méthode permet de supprimer un Fournisseur par son ID", response = FournisseurDto.class )
+            notes = "Cette méthode permet de supprimer un Fournisseur par son ID", response = FournisseurDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le Fournisseur a été supprimé")
     })

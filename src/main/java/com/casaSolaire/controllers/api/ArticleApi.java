@@ -18,11 +18,22 @@ public interface ArticleApi {
     @ApiOperation(value = "Enregistrer un Article",
             notes = "Cette méthode permet d'enregistrer et modifier un Article", response = ArticleDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "L'Article a été crée / modifié"),
+            @ApiResponse(code = 201, message = "L'Article a été crée / modifié"),
             @ApiResponse(code = 400, message = "Aucun Address  crée / modifié")
 
     })
     ResponseEntity<ArticleDto> save(@RequestBody ArticleDto articleDto);
+
+    @PutMapping(value = APP_ROOT + "/articles/update/{idArticle}",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Modifier un article par son ID",
+            notes = "Cette méthode permet de modifier un article par son ID", response = ArticleDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'Artilce a été modifiée"),
+            @ApiResponse(code = 400, message = "L'Artilce a n'est pas modifiée")
+    })
+    ResponseEntity<ArticleDto> update(@PathVariable("idArticle") Long id, @RequestBody ArticleDto articleDto);
+
 
     @GetMapping(value = APP_ROOT + "/articles/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Article par ID",

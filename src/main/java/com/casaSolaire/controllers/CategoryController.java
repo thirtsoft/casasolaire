@@ -28,6 +28,12 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
+    public ResponseEntity<CategoryDto> update(Long id, CategoryDto categoryDto) {
+        categoryDto.setId(id);
+        return ResponseEntity.ok(categoryService.save(categoryDto));
+    }
+
+    @Override
     public ResponseEntity<CategoryDto> findById(Long id) {
         return ResponseEntity.ok(categoryService.findById(id));
     }

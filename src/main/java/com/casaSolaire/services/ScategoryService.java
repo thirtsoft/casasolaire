@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface ScategoryService {
 
-    ScategoryDto save(ScategoryDto scategoryDto);
+    ScategoryDto save(ScategoryDto ScategoryDto);
+
+    ScategoryDto update(Long id, ScategoryDto ScategoryDto);
 
     ScategoryDto findById(Long id);
 

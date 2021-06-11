@@ -8,6 +8,8 @@ public interface ArticleService {
 
     ArticleDto save(ArticleDto articleDto);
 
+    ArticleDto update(Long id, ArticleDto articleDto);
+
     ArticleDto findById(Long id);
 
     ArticleDto findByReference(String reference);

@@ -38,6 +38,36 @@ public class FournisseurServiceImpl implements FournisseurService {
     }
 
     @Override
+    public FournisseurDto update(Long id, FournisseurDto fournisseurDto) {
+        if (!fournisseurRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Fournisseur not found");
+        }
+
+        Optional<Fournisseur> fournisseur = fournisseurRepository.findById(id);
+
+        if (!fournisseur.isPresent()) {
+            throw new ResourceNotFoundException("Fournisseur not found");
+        }
+
+        FournisseurDto fournisseurDTOResult = FournisseurDto.fromEntityToDto(fournisseur.get());
+        fournisseurDTOResult.setReference(fournisseurDto.getReference());
+        fournisseurDTOResult.setFirstName(fournisseurDto.getFirstName());
+        fournisseurDTOResult.setLastName(fournisseurDto.getLastName());
+        fournisseurDTOResult.setTown(fournisseurDto.getTown());
+        fournisseurDTOResult.setTelephone(fournisseurDto.getTelephone());
+        fournisseurDTOResult.setEmail(fournisseurDto.getEmail());
+        fournisseurDTOResult.setCity(fournisseurDto.getCity());
+        fournisseurDTOResult.setRue(fournisseurDto.getRue());
+        fournisseurDTOResult.setArticleDto(fournisseurDto.getArticleDto());
+
+        return FournisseurDto.fromEntityToDto(
+                fournisseurRepository.save(
+                        FournisseurDto.fromDtoToEntity(fournisseurDTOResult)
+                )
+        );
+    }
+
+    @Override
     public FournisseurDto findById(Long id) {
         if (id == null) {
             log.error("Article Id is null");

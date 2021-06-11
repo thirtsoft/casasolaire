@@ -38,6 +38,36 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public ArticleDto update(Long id, ArticleDto articleDto) {
+        if (!articleRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Article not found");
+        }
+
+        Optional<Article> article = articleRepository.findById(id);
+
+        if (!article.isPresent()) {
+            throw new ResourceNotFoundException("Article not found");
+        }
+
+        ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(article.get());
+        articleDtoResult.setReference(articleDto.getReference());
+        articleDtoResult.setDesignation(articleDto.getDesignation());
+        articleDtoResult.setPrice(articleDto.getPrice());
+        articleDtoResult.setCurrentPrice(articleDto.getCurrentPrice());
+        articleDtoResult.setQuantity(articleDto.getQuantity());
+        articleDtoResult.setPhoto(articleDto.getPhoto());
+        articleDtoResult.setPromo(articleDto.isPromo());
+        articleDtoResult.setDescription(articleDto.getDescription());
+        articleDtoResult.setScategoryDto(articleDto.getScategoryDto());
+
+        return ArticleDto.fromEntityToDto(
+                articleRepository.save(
+                        ArticleDto.fromDtoToEntity(articleDtoResult)
+                )
+        );
+    }
+
+    @Override
     public ArticleDto findById(Long id) {
         if (id == null) {
             log.error("Article Id is null");

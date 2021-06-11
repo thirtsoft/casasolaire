@@ -18,11 +18,22 @@ public interface ScategoryApi {
     @ApiOperation(value = "Enregistrer une Scategory",
             notes = "Cette méthode permet d'enregistrer et modifier une Category", response = ScategoryDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La Scategory a été crée / modifié"),
+            @ApiResponse(code = 201, message = "La Scategory a été crée / modifié"),
             @ApiResponse(code = 400, message = "Aucun Scategory  crée / modifié")
 
     })
     ResponseEntity<ScategoryDto> save(@RequestBody ScategoryDto scategoryDto);
+
+    @PutMapping(value = APP_ROOT + "/scategories/update/{idScategory}",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Modifier une Scategory par son ID",
+            notes = "Cette méthode permet de modifier une Scategory par son ID", response = ScategoryDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La Scategory a été modifiée"),
+            @ApiResponse(code = 400, message = "La Scategory a n'est pas modifiée")
+    })
+    ResponseEntity<ScategoryDto> update(@PathVariable("idScategory") Long id, @RequestBody ScategoryDto scategoryDto);
+
 
     @GetMapping(value = APP_ROOT + "/scategories/{idScategory}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Scategory par ID",

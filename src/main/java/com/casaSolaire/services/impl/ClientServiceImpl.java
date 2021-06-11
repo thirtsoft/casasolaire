@@ -1,8 +1,10 @@
 package com.casaSolaire.services.impl;
 
 import com.casaSolaire.dto.ClientDto;
+import com.casaSolaire.dto.FournisseurDto;
 import com.casaSolaire.exceptions.ResourceNotFoundException;
 import com.casaSolaire.models.Client;
+import com.casaSolaire.models.Fournisseur;
 import com.casaSolaire.repository.ClientRepository;
 import com.casaSolaire.services.ClientService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +37,33 @@ public class ClientServiceImpl implements ClientService {
                 )
         );
 
+    }
+
+    @Override
+    public ClientDto update(Long id, ClientDto clientDto) {
+        if (!clientRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Client not found");
+        }
+
+        Optional<Client> client = clientRepository.findById(id);
+
+        if (!client.isPresent()) {
+            throw new ResourceNotFoundException("Client not found");
+        }
+
+        ClientDto clientDTOResult = ClientDto.fromEntityToDto(client.get());
+        clientDTOResult.setReference(clientDto.getReference());
+        clientDTOResult.setFirstName(clientDto.getFirstName());
+        clientDTOResult.setLastName(clientDto.getLastName());
+        clientDTOResult.setAddress(clientDto.getAddress());
+        clientDTOResult.setMobile(clientDto.getMobile());
+        clientDTOResult.setEmail(clientDto.getEmail());
+
+        return ClientDto.fromEntityToDto(
+                clientRepository.save(
+                        ClientDto.fromDtoToEntity(clientDTOResult)
+                )
+        );
     }
 
     @Override
