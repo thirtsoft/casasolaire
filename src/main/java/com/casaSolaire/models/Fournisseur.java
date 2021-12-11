@@ -42,6 +42,13 @@ public class Fournisseur implements Serializable {
     @Column(name = "rue", length = 150)
     private String rue;
 
+    @Column(name = "subject", length = 120)
+    private String subject;
+
+    @Column(name = "message")
+    @Lob
+    private String message;
+
     @ManyToOne
     @JoinColumn(name = "idArticle")
     private Article article;

@@ -30,6 +30,10 @@ public class FournisseurDto {
 
     private String rue;
 
+    private String subject;
+
+    private String message;
+
     private ArticleDto articleDto;
 
     public static FournisseurDto fromEntityToDto(Fournisseur fournisseur) {
@@ -46,6 +50,8 @@ public class FournisseurDto {
                 .city(fournisseur.getCity())
                 .town(fournisseur.getTown())
                 .rue(fournisseur.getRue())
+                .subject(fournisseur.getSubject())
+                .message(fournisseur.getMessage())
                 .articleDto(ArticleDto.fromEntityToDto(fournisseur.getArticle()))
                 .build();
     }
@@ -64,6 +70,8 @@ public class FournisseurDto {
         fournisseur.setCity(fournisseurDto.getCity());
         fournisseur.setTown(fournisseurDto.getTown());
         fournisseur.setRue(fournisseurDto.getRue());
+        fournisseur.setSubject(fournisseurDto.getSubject());
+        fournisseur.setMessage(fournisseurDto.getMessage());
         fournisseur.setArticle(ArticleDto.fromDtoToEntity(fournisseurDto.getArticleDto()));
 
         return fournisseur;
