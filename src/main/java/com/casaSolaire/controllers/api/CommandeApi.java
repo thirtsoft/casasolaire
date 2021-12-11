@@ -1,7 +1,6 @@
 package com.casaSolaire.controllers.api;
 
-import com.casaSolaire.dto.CategoryDto;
-import com.casaSolaire.dto.ClientDto;
+
 import com.casaSolaire.dto.CommandeDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
