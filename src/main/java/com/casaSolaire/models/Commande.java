@@ -22,7 +22,7 @@ public class Commande implements Serializable {
     private Long id;
 
     @Column(name = "number", length = 90)
-    private String number;
+    private Long number;
 
     @Column(name = "total", length = 150)
     private double total;
