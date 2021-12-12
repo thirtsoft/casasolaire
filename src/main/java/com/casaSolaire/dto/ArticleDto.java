@@ -54,6 +54,25 @@ public class ArticleDto {
         this.scategoryDto = scategoryDto;
     }
 
+    public ArticleDto(Long id, String reference, String designation,
+                      int quantity, int quantite, double price, String description,
+                      boolean selected,
+                      String photo, ScategoryDto scategoryDto) {
+        this.id = id;
+        this.reference = reference;
+        this.designation = designation;
+        this.quantity = quantity;
+        this.quantite = quantite;
+        this.price = price;
+        this.currentPrice = currentPrice;
+        this.promo = promo;
+        this.selected = selected;
+        this.description = description;
+        this.manufactured = manufactured;
+        this.photo = photo;
+        this.scategoryDto = scategoryDto;
+    }
+
     public static ArticleDto fromEntityToDto(Article article) {
         if (article == null) {
             return null;

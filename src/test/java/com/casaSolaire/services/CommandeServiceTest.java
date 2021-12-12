@@ -32,13 +32,12 @@ public class CommandeServiceTest {
     public void CreateCommanderTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("Art")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .number("com2")
+                .numeroCommande(2L)
                 .clientDto(clientDto)
                 .build();
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
@@ -50,21 +49,20 @@ public class CommandeServiceTest {
         assertThat(commandeDto).isNotNull();
         //    assertThat(commandeDtoSavedResult).isEqualTo(commandeDto);
         assertThat(commandeDtoSavedResult.getId()).isEqualTo(commander.getId());
-        assertThat(commandeDtoSavedResult.getNumber()).isEqualTo(commander.getNumber());
-        assertThat(commandeDtoSavedResult.getTotal()).isEqualTo(commander.getTotal());
+        assertThat(commandeDtoSavedResult.getNumeroCommande()).isEqualTo(commander.getNumeroCommande());
+        assertThat(commandeDtoSavedResult.getTotalCommande()).isEqualTo(commander.getTotalCommande());
     }
 
     @Test
     public void findAllTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .number("com2")
+                .numeroCommande(2L)
                 .clientDto(clientDto)
                 .build();
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
@@ -82,13 +80,12 @@ public class CommandeServiceTest {
     public void findByIdTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .number("com2")
+                .numeroCommande(2L)
                 .clientDto(clientDto)
                 .build();
 

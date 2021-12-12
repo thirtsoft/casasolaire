@@ -28,11 +28,8 @@ public class AddressRepositoryTest {
         String town = "DK";
         String country = "Africa";
         Address addressDto = new Address();
-        addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
-        addressDto.setTown(town);
-        addressDto.setCountry(country);
 
         Address addressDtoResult = addressRepository.save(addressDto);
 
@@ -49,23 +46,18 @@ public class AddressRepositoryTest {
         String town = "DK";
         String country = "Africa";
         Address addressDto = new Address();
-        addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
-        addressDto.setTown(town);
-        addressDto.setCountry(country);
 
         Address addressDtoResult = addressRepository.save(addressDto);
 
         String town1 = "ZG";
         String country1 = "Africa";
-        addressDto.setTown(town1);
-        addressDto.setCountry(country1);
         addressDto.setId((long) 4);
 
         addressRepository.save(addressDto);
 
-        assertThat(addressDto.getTown()).isEqualTo(town1);
+        assertThat(addressDto.getCity()).isEqualTo(city);
 
     }
 
@@ -77,11 +69,8 @@ public class AddressRepositoryTest {
         String town = "DK";
         String country = "Africa";
         Address addressDto = new Address();
-        addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
-        addressDto.setTown(town);
-        addressDto.setCountry(country);
 
         Address addressDtoResult = addressRepository.save(addressDto);
 
@@ -99,11 +88,8 @@ public class AddressRepositoryTest {
         String town = "DK";
         String country = "Africa";
         Address addressDto = new Address();
-        addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
-        addressDto.setTown(town);
-        addressDto.setCountry(country);
 
         Address addressDtoResult = addressRepository.save(addressDto);
 
@@ -113,11 +99,8 @@ public class AddressRepositoryTest {
         String town1 = "DK";
         String country1 = "Africa";
         Address addressDto1 = new Address();
-        addressDto1.setCode(code1);
         addressDto1.setCity(city1);
         addressDto1.setRue(rue1);
-        addressDto1.setTown(town1);
-        addressDto1.setCountry(country1);
 
         Address addressDtoResult1 = addressRepository.save(addressDto1);
 
@@ -136,11 +119,8 @@ public class AddressRepositoryTest {
         String town = "DK";
         String country = "Africa";
         Address addressDto = new Address();
-        addressDto.setCode(code);
         addressDto.setCity(city);
         addressDto.setRue(rue);
-        addressDto.setTown(town);
-        addressDto.setCountry(country);
 
         Address addressDtoResult = addressRepository.save(addressDto);
 

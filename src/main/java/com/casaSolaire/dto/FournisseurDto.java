@@ -36,6 +36,18 @@ public class FournisseurDto {
 
     private ArticleDto articleDto;
 
+    public FournisseurDto(Long id, String reference, String firstName, String lastName,
+                          String email, String telephone,
+                          ArticleDto articleDto) {
+        this.id = id;
+        this.reference = reference;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.telephone = telephone;
+        this.articleDto = articleDto;
+    }
+
     public static FournisseurDto fromEntityToDto(Fournisseur fournisseur) {
         if (fournisseur == null) {
             return null;

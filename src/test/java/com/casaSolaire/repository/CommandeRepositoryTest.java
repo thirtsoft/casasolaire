@@ -30,12 +30,12 @@ public class CommandeRepositoryTest {
         Long idClient = (long) 1;
         Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 123456L;
         double total = 12000;
-        Status status = Status.PAYEE;
+        String status = "PAYEE";
         Commande commandeDto = new Commande();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
         commandeDto.setClient(client);
 
@@ -51,12 +51,12 @@ public class CommandeRepositoryTest {
         Long idClient = (long) 1;
         Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 12L;
         double total = 12000;
-        Status status = Status.PAYEE;
+        String status = "PAYEE";
         Commande commandeDto = new Commande();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
         commandeDto.setClient(client);
 
@@ -75,12 +75,12 @@ public class CommandeRepositoryTest {
         Long idClient = (long) 1;
         Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 12L;
         double total = 12000;
-        Status status = Status.PAYEE;
+        String status = "PAYEE";
         Commande commandeDto = new Commande();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
         commandeDto.setClient(client);
 
@@ -97,22 +97,22 @@ public class CommandeRepositoryTest {
         Long idClient = (long) 1;
         Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 12L;
         double total = 12000;
-        Status status = Status.PAYEE;
+        String status = "PAYEE";
         Commande commandeDto = new Commande();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
         commandeDto.setClient(client);
         commandeRepository.save(commandeDto);
 
-        String number1 = "Com1";
+        Long number1 = 5L;
         double total1 = 12000;
-        Status status1 = Status.PAYEE;
+        String status1 = "PAYEE";
         Commande commandeDto1 = new Commande();
-        commandeDto1.setNumber(number1);
-        commandeDto1.setTotal(total1);
+        commandeDto1.setNumeroCommande(number1);
+        commandeDto1.setTotalCommande(total1);
         commandeDto1.setStatus(status1);
         commandeDto1.setClient(client);
         commandeRepository.save(commandeDto1);
@@ -129,12 +129,12 @@ public class CommandeRepositoryTest {
         Long idClient = (long) 1;
         Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 12L;
         double total = 12000;
-        Status status = Status.PAYEE;
+        String status = "PAYEE";
         Commande commandeDto = new Commande();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
         commandeDto.setClient(client);
 

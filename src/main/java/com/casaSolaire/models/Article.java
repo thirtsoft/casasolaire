@@ -89,6 +89,28 @@ public class Article implements Serializable {
         this.scategory = scategory;
     }
 
+    public Article(Long id, String reference, String designation,
+                   double price, double currentPrice, int quantite,
+                   boolean selected,
+                   String description, String photo, Scategory scategory) {
+        this.id = id;
+        this.reference = reference;
+        this.designation = designation;
+        this.quantity = quantity;
+        this.quantite = quantite;
+        this.price = price;
+        this.currentPrice = currentPrice;
+        this.promo = promo;
+        this.selected = selected;
+        this.createDate = createDate;
+        this.lastUpDated = lastUpDated;
+        this.description = description;
+        this.manufactured = manufactured;
+        this.photo = photo;
+        this.scategory = scategory;
+        this.notificationList = notificationList;
+    }
+
     public Article(String designation, String photo, double price, String description, Scategory scategory) {
         super();
         this.designation = designation;

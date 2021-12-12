@@ -76,6 +76,14 @@ public class Client implements Serializable {
 
     }
 
+    public Client(Long id, String firstName, String lastName, String email, String mobile) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobile = mobile;
+    }
+
     public void add(Commande commande) {
         if (commande != null) {
             if (commandeList == null) {

@@ -32,7 +32,6 @@ public class ClientServiceTest {
     public void CreateClientTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .email("CLT")
@@ -46,7 +45,6 @@ public class ClientServiceTest {
         assertThat(clientDto).isNotNull();
         assertThat(clientDtoSavedResult).isEqualTo(clientDto);
         assertThat(clientDtoSavedResult.getId()).isEqualTo(client.getId());
-        assertThat(clientDtoSavedResult.getReference()).isEqualTo(client.getReference());
         assertThat(clientDtoSavedResult.getFirstName()).isEqualTo(client.getFirstName());
     }
 
@@ -54,7 +52,6 @@ public class ClientServiceTest {
     public void findAllTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .email("CLT")
@@ -75,7 +72,6 @@ public class ClientServiceTest {
     public void findByIdTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .email("CLT")

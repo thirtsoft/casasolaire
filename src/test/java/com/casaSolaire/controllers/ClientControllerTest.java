@@ -55,7 +55,7 @@ public class ClientControllerTest {
 
     @Before
     public void setup() {
-        clientDto = new ClientDto(1L, "cl1", "cl1", "cl1", "cl1", "cl1", "cl1");
+        clientDto = new ClientDto(1L, "cl1", "cl1", "cl1", "cl1");
         mockMvc = MockMvcBuilders.standaloneSetup(clientController).build();
     }
 

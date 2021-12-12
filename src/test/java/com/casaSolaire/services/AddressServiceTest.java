@@ -33,14 +33,12 @@ public class AddressServiceTest {
     public void CreateAddressClientTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
         AddressDto addressClientDto = AddressDto.builder()
                 .id(1L)
                 .city("city")
-                .country("country")
                 .build();
         Address addressClient = AddressDto.fromDtoToEntity(addressClientDto);
         when(addresseClientRepository.save(addressClient)).thenReturn(addressClient);
@@ -59,14 +57,12 @@ public class AddressServiceTest {
     public void findAllTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
         AddressDto addressClientDto = AddressDto.builder()
                 .id(1L)
                 .city("city")
-                .country("country")
                 .build();
         Address addressClient = AddressDto.fromDtoToEntity(addressClientDto);
         when(addresseClientRepository.findAll()).thenReturn(singletonList(addressClient));
@@ -83,14 +79,12 @@ public class AddressServiceTest {
     public void findByIdTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
         AddressDto addressClientDto = AddressDto.builder()
                 .id(1L)
                 .city("city")
-                .country("country")
                 .build();
         Optional<Address> addressClient = Optional.ofNullable(AddressDto.fromDtoToEntity(addressClientDto));
         when(addresseClientRepository.findById(addressClient.get().getId())).thenReturn(addressClient);

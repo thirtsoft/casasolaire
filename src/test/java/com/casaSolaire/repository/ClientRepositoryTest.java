@@ -22,19 +22,15 @@ public class ClientRepositoryTest {
     @Test
     @Rollback(false)
     public void testCreateClient() {
-        String reference = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
-        String address = "USA";
         Client clientDto = new Client();
-        clientDto.setReference(reference);
         clientDto.setFirstName(firstName);
         clientDto.setLastName(lastName);
         clientDto.setEmail(email);
         clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
 
         Client clientDtoResult = clientRepository.save(clientDto);
 
@@ -66,19 +62,15 @@ public class ClientRepositoryTest {
 
     @Test
     public void testFindById() {
-        String reference = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
-        String address = "USA";
         Client clientDto = new Client();
-        clientDto.setReference(reference);
         clientDto.setFirstName(firstName);
         clientDto.setLastName(lastName);
         clientDto.setEmail(email);
         clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
 
         Client clientDtoResult = clientRepository.save(clientDto);
 
@@ -99,13 +91,11 @@ public class ClientRepositoryTest {
         Client clientDto = new Client(null, reference, firstName, lastName, email, mobile, address);
         clientRepository.save(clientDto);
 
-        String reference1 = "CLT1";
         String firstName1 = "tairou";
         String lastName1 = "diallo";
         String email1 = "thirdiallo@gmail.com";
         String mobile1 = "779440310";
-        String address1 = "USA";
-        Client clientDto1 = new Client(null, reference1, firstName1, lastName1, email1, mobile1, address1);
+        Client clientDto1 = new Client(1L,firstName1, lastName1, email1, mobile1);
         clientRepository.save(clientDto1);
 
         List<Client> clientList = clientRepository.findAll();
@@ -117,19 +107,16 @@ public class ClientRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        String reference = "CLT1";
         String firstName = "tairou";
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
         String address = "USA";
         Client clientDto = new Client();
-        clientDto.setReference(reference);
         clientDto.setFirstName(firstName);
         clientDto.setLastName(lastName);
         clientDto.setEmail(email);
         clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
 
         Client clientDtoResult = clientRepository.save(clientDto);
 

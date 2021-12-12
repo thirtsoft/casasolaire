@@ -62,7 +62,7 @@ public class FournisseurControllerTest {
         articleDto.setId(1L);
         articleDto.setReference("prod1");
         articleDto.setDesignation("prod1");
-        fournisseurDto = new FournisseurDto(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", articleDto);
+        fournisseurDto = new FournisseurDto(1L, "f1", "f1", "f1", "f1", "f1", articleDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(fournisseurController).build();
     }

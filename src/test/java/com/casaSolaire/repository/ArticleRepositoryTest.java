@@ -33,9 +33,9 @@ public class ArticleRepositoryTest {
         String designation = "Article1";
         double price = 12000;
         String description = "blablablalba";
-        Article articleDto = new Article(null, reference, designation, price, 12000, 5, true, description, "photo", scategory);
+        Article article = new Article(1L, reference, designation, price, 12000, 5, true, description, "photo", scategory);
 
-        Article articleDtoResult = articleRepository.save(articleDto);
+        Article articleDtoResult = articleRepository.save(article);
 
         assertNotNull(articleDtoResult);
 

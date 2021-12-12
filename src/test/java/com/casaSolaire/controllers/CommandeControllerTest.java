@@ -3,6 +3,8 @@ package com.casaSolaire.controllers;
 
 import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.dto.CommandeDto;
+import com.casaSolaire.models.Client;
+import com.casaSolaire.models.Commande;
 import com.casaSolaire.services.CommandeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
@@ -43,7 +45,10 @@ public class CommandeControllerTest {
     @InjectMocks
     private CommandeController commandeController;
 
-    private ClientDto clientDto;
+    private Client client;
+    private Commande commande;
+    private List<Commande> commandeList;
+
     private CommandeDto commandeDto;
     private List<CommandeDto> commandeDtoList;
 
@@ -57,23 +62,23 @@ public class CommandeControllerTest {
 
     @Before
     public void setup() {
-        clientDto = new ClientDto();
-        clientDto.setReference("cl1");
-        clientDto.setLastName("diallo");
-        commandeDto = new CommandeDto();
-        commandeDto.setId(1L);
-        commandeDto.setClientDto(clientDto);
+        client = new Client();
+        client.setLastName("diallo");
+        commande = new Commande();
+        commande.setId(1L);
+        commande.setClient(client);
 
         mockMvc = MockMvcBuilders.standaloneSetup(commandeController).build();
     }
 
     @After
     public void tearDown() {
-        commandeDto = null;
+        commande = null;
     }
 
     @Test
     public void PostMappingOfCommande() throws Exception {
+        CommandeDto commandeDto = null;
         when(commandeService.save(any())).thenReturn(commandeDto);
         mockMvc.perform(post("/casa-solaire/v1/commandes/create")
                 .contentType(MediaType.APPLICATION_JSON)

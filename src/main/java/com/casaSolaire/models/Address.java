@@ -1,5 +1,6 @@
 package com.casaSolaire.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,18 +19,25 @@ public class Address implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", length = 30)
-    private String code;
+    @Column(name = "reference", length = 50)
+    private String reference;
 
-    @Column(name = "city", length = 100)
+    @Column(name = "zipcode", length = 90)
+    private String zipcode;
+
+    @Column(name = "ville", length = 70)
     private String city;
 
-    @Column(name = "rue", length = 100)
+    @Column(name = "rue", length = 90)
     private String rue;
 
-    @Column(name = "town", length = 90)
-    private String town;
+    @ManyToOne
+    @JoinColumn(name = "stateId")
+    private State state;
 
-    @Column(name = "country", length = 90)
-    private String country;
+    @OneToOne
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+    private Commande commande;
+
 }

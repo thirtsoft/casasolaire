@@ -53,7 +53,7 @@ public class LigneCommande implements Serializable {
 
     public LigneCommande(Long id, int quantity, double price, Commande commande, Article article) {
         this.id = id;
-        this.numero = commande.getNumber();
+        this.numero = commande.getNumeroCommande();
         this.quantity = quantity;
         this.price = price;
         this.createdDate = new Date();

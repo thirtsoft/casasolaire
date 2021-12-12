@@ -37,8 +37,6 @@ public class CasaSolaireApplication implements CommandLineRunner {
     @Autowired
     private StateRepository stateRepository;
     @Autowired
-    private Address addressLivraisonRepository;
-    @Autowired
     private RoleRepository roleRepository;
     @Autowired
     private UtilisateurRepository utilisateurRepository;
@@ -87,28 +85,23 @@ public class CasaSolaireApplication implements CommandLineRunner {
         Article p7 = articleRepository.save(new Article(7L, "prod7", "Pantallon", 150, 2000.0, 1800.0, true, true, "prod1", "product-7.jpg", sc1));
         Article p8 = articleRepository.save(new Article(8L, "prod8", "Cullote", 150, 3000.0, 1800.0, false, true, "prod1", "product-8.jpg", sc3));
         Article p9 = articleRepository.save(new Article(9L, "prod9", "Ensembes", 150, 5000.0, 1800.0, true, true, "prod1", "product-9.jpg", sc3));
-        Article p10 = articleRepository.save(new Article(10L, "prod10", "Pantallon", 150, 4000.0, 1800.0, false, true, "prod1", "product-10.jpg", sc4));
-        Article p11 = articleRepository.save(new Article(11L, "prod11", "Robe Ete", 150, 50000.0, 1800.0, true, true, "prod1", "photo1.jpg", sc1));
-        Article p12 = articleRepository.save(new Article(12L, "prod12", "HuperCool", 150, 20000.0, 1800.0, true, true, "prod1", "photo2.jpg", sc3));
-        Article p13 = articleRepository.save(new Article(13L, "prod13", "Parfums", 150, 1600.0, 1800.0, false, true, "prod1", "photo3.jpg", sc2));
-        Article p14 = articleRepository.save(new Article(14L, "prod14", "Eaux de Cologne", 150, 1500.0, 1800.0, true, false, "prod1", "photo4.jpg", sc1));
-        Article p15 = articleRepository.save(new Article(15L, "prod15", "Ordinateurs", 150, 1700.0, 1800.0, false, false, "prod1", "photo5.jpg", sc4));
-        Article p16 = articleRepository.save(new Article(16L, "prod16", "Mini PC", 150, 20000.0, 1800.0, true, true, "prod1", "photo6.jpg", sc1));
-        Article p17 = articleRepository.save(new Article(17L, "prod17", "product-17", 150, 14000.0, 1800.0, true, false, "prod1", "photo7.jpg", sc1));
-        Article p18 = articleRepository.save(new Article(18L, "prod18", "product-18", 150, 12000.0, 1800.0, false, false, "prod1", "photo8.jpg", sc3));
-        Article p19 = articleRepository.save(new Article(19L, "prod19", "product-19", 150, 10000.0, 1800.0, true, false, "prod1", "photo9.jpg", sc3));
-        Article p20 = articleRepository.save(new Article(20L, "prod20", "product-20", 150, 12000.0, 1800.0, false, false, "prod1", "photo10.jpg", sc4));
+        Article p10 = articleRepository.save(new Article(10L, "prod10", "Pantallon", 150, 4000.0, 1800.0, false, true, "prod1", "product-1.jpg", sc4));
+        Article p11 = articleRepository.save(new Article(11L, "prod11", "Robe Ete", 150, 50000.0, 1800.0, true, true, "prod1", "man-1.jpg", sc1));
+        Article p12 = articleRepository.save(new Article(12L, "prod12", "HuperCool", 150, 20000.0, 1800.0, true, true, "prod1", "man-2.jpg", sc3));
+        Article p13 = articleRepository.save(new Article(13L, "prod13", "Parfums", 150, 1600.0, 1800.0, false, true, "prod1", "man-3.jpg", sc2));
+        Article p14 = articleRepository.save(new Article(14L, "prod14", "Eaux de Cologne", 150, 1500.0, 1800.0, true, false, "prod1", "man-4.jpg", sc1));
+        Article p15 = articleRepository.save(new Article(15L, "prod15", "Ordinateurs", 150, 1700.0, 1800.0, false, false, "prod1", "man-large.jpg", sc4));
+        Article p16 = articleRepository.save(new Article(16L, "prod16", "Mini PC", 150, 20000.0, 1800.0, true, true, "prod1", "women-1.jpg", sc1));
+        Article p17 = articleRepository.save(new Article(17L, "prod17", "product-17", 150, 14000.0, 1800.0, true, false, "prod1", "women-2.jpg", sc1));
+        Article p18 = articleRepository.save(new Article(18L, "prod18", "product-18", 150, 12000.0, 1800.0, false, false, "prod1", "women-3.jpg", sc3));
+        Article p19 = articleRepository.save(new Article(19L, "prod19", "product-19", 150, 10000.0, 1800.0, true, false, "prod1", "women-4.jpg", sc3));
+        Article p20 = articleRepository.save(new Article(20L, "prod20", "product-20", 150, 12000.0, 1800.0, false, false, "prod1", "women-large.jpg", sc4));
 
         Fournisseur f1 = fournisseurRepository.save(new Fournisseur(1L, "f1", "f1", "f1", "f1", "masterou@gmail.fr", "f1", "f1", "f1", p1));
         Fournisseur f2 = fournisseurRepository.save(new Fournisseur(2L, "f2", "f2", "f2", "f2", "thirtsoft@gmail.com", "f2", "f2", "f2", p2));
         Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "m.diallo233@unig-zig.sn", "f3", "f3", "f3", p2));
         Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "thirtsoft@gmail.com", "f4", "f4", "f4", p1));
 
-      /*  Client cl1 = clientRepository.save(new Client("cl1", "cl1", "cl1", "779440310" ));
-        Client cl2 = clientRepository.save(new Client("cl2", "cl2", "cl2", "778102567" ));
-        Client cl3 = clientRepository.save(new Client("cl3", "cl3", "cl3", "774567321"));
-        Client cl4 = clientRepository.save(new Client("cl4", "cl4", "cl4", "776543298" ));
-*/
         Country count1 = countryRepository.save(new Country(1L, "SEN", "SENEGAL"));
         Country count2 = countryRepository.save(new Country(2L, "USA", "Etats-Unies"));
         Country count3 = countryRepository.save(new Country(3L, "GUIN", "Guinnée-Conakry"));
