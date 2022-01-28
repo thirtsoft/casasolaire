@@ -49,10 +49,10 @@ public class Commande implements Serializable {
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private Utilisateur utilisateur;
 
-    @OneToOne(cascade = CascadeType.ALL)
+   /* @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipping_address_id", referencedColumnName = "id")
     private Address shippingAddress;
-
+*/
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     private Address billingAddress;

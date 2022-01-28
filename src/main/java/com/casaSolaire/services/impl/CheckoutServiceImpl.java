@@ -10,14 +10,12 @@ import com.casaSolaire.repository.ClientRepository;
 import com.casaSolaire.repository.UtilisateurRepository;
 import com.casaSolaire.services.CheckoutService;
 import com.casaSolaire.services.UtilisateurService;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-
-import org.joda.time.LocalDateTime;
-import org.joda.time.format.DateTimeFormat;
 
 import javax.transaction.Transactional;
 import java.util.Date;
@@ -71,7 +69,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
-        commande.setShippingAddress(purchase.getShippingAddress());
+        //     commande.setShippingAddress(purchase.getShippingAddress());
 
         // populate customer with order
         Client client = purchase.getClient();
@@ -110,7 +108,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
-        commande.setShippingAddress(purchase.getShippingAddress());
+        //    commande.setShippingAddress(purchase.getShippingAddress());
 
         // populate customer with order
         Client client = purchase.getClient();

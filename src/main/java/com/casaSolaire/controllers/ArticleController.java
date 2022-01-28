@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -106,6 +107,11 @@ public class ArticleController implements ArticleApi {
     public ResponseEntity<List<ArticleDto>> getAllArticlesOrderByIdDesc() {
         List<ArticleDto> articleDtoList = articleService.findByOrderByIdDesc();
         return new ResponseEntity<>(articleDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public BigDecimal countNumberOfProductInSubCategory(Long subCatId) {
+        return articleService.countNumberOfProductInSubCategory(subCatId);
     }
 
     @Override

@@ -58,8 +58,8 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select p from Commande p where p.utilisateur.id =:user order by id Desc")
     List<Commande> ListCommandeByCustomerId(@Param("user") Long userId);
 
-    @Query("select p from Commande p where p.shippingAddress.id =:addLivraison order by id Desc")
-    List<Commande> ListCommandeByAddressLivraisonId(@Param("addLivraison") Long addLivraison);
+   /* @Query("select p from Commande p where p.shippingAddress.id =:addLivraison order by id Desc")
+    List<Commande> ListCommandeByAddressLivraisonId(@Param("addLivraison") Long addLivraison);*/
 
     @Query("select p from Commande p where p.billingAddress.id =:addAchat order by id Desc")
     List<Commande> ListCommandeByAddressAchatId(@Param("addAchat") Long addAchat);

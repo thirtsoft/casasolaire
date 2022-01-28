@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.casaSolaire.utils.Constants.APP_ROOT;
@@ -135,6 +136,14 @@ public interface ArticleApi {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
     ResponseEntity<List<ArticleDto>> getAllArticlesOrderByIdDesc();
+
+    @GetMapping(value = APP_ROOT + "/articles/countNumberOfProductInSubCat/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Commande du mois",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande du mois")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+    })
+    BigDecimal countNumberOfProductInSubCategory(@PathVariable("subCatId") Long subCatId);
 
     @GetMapping(value = APP_ROOT + "/articles/searchArticleByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par pages",

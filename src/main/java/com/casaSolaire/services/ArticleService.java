@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ArticleService {
@@ -41,6 +42,8 @@ public interface ArticleService {
     Page<ArticleDto> findArticleByScategoryPageables(Long scatId, Pageable pageable);
 
     Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable);
+
+    BigDecimal countNumberOfProductInSubCategory(Long scatId);
 
     void delete(Long id);
 

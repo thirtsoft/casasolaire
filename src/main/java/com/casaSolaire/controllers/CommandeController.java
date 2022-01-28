@@ -139,11 +139,11 @@ public class CommandeController implements CommandeApi {
         return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
     }
 
-    @Override
+   /* @Override
     public ResponseEntity<List<CommandeDto>> getCommandesByShippingAddressByIdDesc(Long id) {
         List<CommandeDto> commandeDtoList = commandeService.findCommandesByAddressLivraisonId(id);
         return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
-    }
+    }*/
 
     @Override
     public List<?> countNumberOfCommandeByDay() {

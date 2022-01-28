@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -200,6 +201,11 @@ public class ArticleServiceImpl implements ArticleService {
     public Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable) {
         return articleRepository.findArticlePageableGroupByPrice(price, pageable)
                 .map(ArticleDto::fromEntityToDto);
+    }
+
+    @Override
+    public BigDecimal countNumberOfProductInSubCategory(Long scatId) {
+        return articleRepository.countNumberOfProductInSubCategory(scatId);
     }
 
     @Override

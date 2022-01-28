@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select p from Article p")
     Page<Article> findArticle(Pageable pageable);
+
+    @Query("select count(p) from Article p where p.scategory.id =:subcat ")
+    BigDecimal countNumberOfProductInSubCategory(@Param("subcat") Long scatId);
 
     @Query("select p from Article p where p.scategory.id =:scat")
     Page<Article> findArticleByScategoryPageables(@Param("scat") Long scatId, Pageable pageable);

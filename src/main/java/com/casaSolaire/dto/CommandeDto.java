@@ -37,7 +37,7 @@ public class CommandeDto {
 
     private UtilisateurDto utilisateurDto;
 
-    private AddressDto shippingAddressDto;
+  //  private AddressDto shippingAddressDto;
 
     private AddressDto billingAddressDto;
 
@@ -60,7 +60,7 @@ public class CommandeDto {
                 .clientDto(ClientDto.fromEntityToDto(commande.getClient()))
                 .utilisateurDto(UtilisateurDto.fromEntityToDto(commande.getUtilisateur()))
                 .billingAddressDto(AddressDto.fromEntityToDto(commande.getBillingAddress()))
-                .shippingAddressDto(AddressDto.fromEntityToDto(commande.getShippingAddress()))
+    //            .shippingAddressDto(AddressDto.fromEntityToDto(commande.getShippingAddress()))
                 .lcomms(commande.getLcomms())
                 .build();
 
@@ -83,7 +83,7 @@ public class CommandeDto {
         commande.setClient(ClientDto.fromDtoToEntity(commandeDto.getClientDto()));
         commande.setUtilisateur(UtilisateurDto.fromDtoToEntity(commandeDto.getUtilisateurDto()));
         commande.setBillingAddress(AddressDto.fromDtoToEntity(commandeDto.getBillingAddressDto()));
-        commande.setShippingAddress(AddressDto.fromDtoToEntity(commandeDto.getShippingAddressDto()));
+    //    commande.setShippingAddress(AddressDto.fromDtoToEntity(commandeDto.getShippingAddressDto()));
         commande.setLcomms(commandeDto.getLcomms());
 
         return commande;

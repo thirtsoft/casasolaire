@@ -157,14 +157,6 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getListOrderByStatusPayed();
 
-   /* @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Commandes par user",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
-    })
-    ResponseEntity<List<CommandeDto>> findListOrderByUserId(@PathVariable(name = "userId") Long userId);*/
-
     @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUserIdOrderByIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
@@ -181,14 +173,14 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getCommandesByBillingAddressOrderByIdDesc(@PathVariable(name = "id") Long id);
 
-    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByShippingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+ /*   @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByShippingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
     ResponseEntity<List<CommandeDto>> getCommandesByShippingAddressByIdDesc(@PathVariable(name = "id") Long id);
-
+*/
     @GetMapping(value = APP_ROOT + "/commandes/numberOfCommandeByDay", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste du nombre de Commandes par jour",
             notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par jour", responseContainer = "List<CommandeDto>")

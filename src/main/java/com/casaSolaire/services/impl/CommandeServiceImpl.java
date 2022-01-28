@@ -346,12 +346,12 @@ public class CommandeServiceImpl implements CommandeService {
                 .collect(Collectors.toList());
     }
 
-    @Override
+   /* @Override
     public List<CommandeDto> findCommandesByAddressLivraisonId(Long addLivraison) {
         return commandeRepository.ListCommandeByAddressLivraisonId(addLivraison).stream()
                 .map(CommandeDto::fromEntityToDto)
                 .collect(Collectors.toList());
-    }
+    }*/
 
     @Override
     public List<CommandeDto> findCommandesByAddressAchatId(Long addAchat) {

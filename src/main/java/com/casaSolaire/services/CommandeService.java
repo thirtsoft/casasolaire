@@ -53,7 +53,7 @@ public interface CommandeService {
 
     List<CommandeDto> findCommandesByUserOrderByIdDesc(Long userId);
 
-    List<CommandeDto> findCommandesByAddressLivraisonId(Long addLivraison);
+    //   List<CommandeDto> findCommandesByAddressLivraisonId(Long addLivraison);
 
     List<CommandeDto> findCommandesByAddressAchatId(Long addAchat);
 
