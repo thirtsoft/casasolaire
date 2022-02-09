@@ -1,9 +1,11 @@
 package com.casaSolaire.controllers;
 
 import com.casaSolaire.controllers.api.ClientApi;
+import com.casaSolaire.dto.CategoryDto;
 import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +37,12 @@ public class ClientController implements ClientApi {
     @Override
     public List<ClientDto> findAll() {
         return clientService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<ClientDto>> getAllClientsOrderByIdDesc() {
+        List<ClientDto> clientDtoList = clientService.findByOrderByIdDesc();
+        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
     }
 
     @Override

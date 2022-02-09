@@ -1,5 +1,7 @@
 package com.casaSolaire.controllers.api;
 
+import com.casaSolaire.dto.FournisseurDto;
+import com.casaSolaire.dto.NotificationDto;
 import com.casaSolaire.dto.ScategoryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -35,7 +37,7 @@ public interface ScategoryApi {
     ResponseEntity<ScategoryDto> update(@PathVariable("idScategory") Long id, @RequestBody ScategoryDto scategoryDto);
 
 
-    @GetMapping(value = APP_ROOT + "/scategories/{idScategory}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/scategories/findById/{idScategory}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Scategory par ID",
             notes = "Cette méthode permet de chercher une Scategory par son ID", response = ScategoryDto.class
     )
@@ -64,6 +66,15 @@ public interface ScategoryApi {
             @ApiResponse(code = 200, message = "La liste des SCategories / une liste vide")
     })
     List<ScategoryDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/scategories/searchAllSubCategoriesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Scategories par ordre descroissante",
+            responseContainer = "List<ScategoryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Scategories  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ScategoryDto>> getAllSubCategoriesOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/scategories/delete/{idScategory}")
     @ApiOperation(value = "Supprimer une SCategory par son ID",

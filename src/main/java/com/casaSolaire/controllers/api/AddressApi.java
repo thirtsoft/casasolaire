@@ -1,6 +1,7 @@
 package com.casaSolaire.controllers.api;
 
 import com.casaSolaire.dto.AddressDto;
+import com.casaSolaire.dto.ArticleDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -24,7 +25,7 @@ public interface AddressApi {
     })
     ResponseEntity<AddressDto> save(@RequestBody AddressDto addressDto);
 
-    @GetMapping(value = APP_ROOT + "/addresses/{idAddress}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/addresses/findById/{idAddress}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Address par ID",
             notes = "Cette méthode permet de chercher une Address par son ID", response = AddressDto.class
     )
@@ -42,6 +43,15 @@ public interface AddressApi {
             @ApiResponse(code = 200, message = "La liste des Address / une liste vide")
     })
     List<AddressDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/addresses/searchAllAddressOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Address par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Address par ordre descroissante",
+            responseContainer = "List<AddressDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<AddressDto>> getAllAddressesOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/addresses/delete/{idAddress}")
     @ApiOperation(value = "Supprimer une Address par son ID",

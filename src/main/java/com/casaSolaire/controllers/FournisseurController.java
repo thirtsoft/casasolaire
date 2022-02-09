@@ -1,9 +1,11 @@
 package com.casaSolaire.controllers;
 
 import com.casaSolaire.controllers.api.FournisseurApi;
+import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.dto.FournisseurDto;
 import com.casaSolaire.services.FournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +43,12 @@ public class FournisseurController implements FournisseurApi {
     @Override
     public List<FournisseurDto> findAll() {
         return fournisseurService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc() {
+        List<FournisseurDto> fournisseurDtoList = fournisseurService.findByOrderByIdDesc();
+        return new ResponseEntity<>(fournisseurDtoList, HttpStatus.OK);
     }
 
     @Override

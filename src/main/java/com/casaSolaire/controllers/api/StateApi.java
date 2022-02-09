@@ -33,7 +33,7 @@ public interface StateApi {
     })
     ResponseEntity<StateDto> update(@PathVariable("idState") Long id, @RequestBody StateDto stateDto);
 
-    @GetMapping(value = APP_ROOT + "/states/{idState}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/states/findById/{idState}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une State par ID",
             notes = "Cette méthode permet de chercher une State par son ID", response = StateDto.class
     )

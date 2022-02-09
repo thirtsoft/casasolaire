@@ -1,5 +1,6 @@
 package com.casaSolaire.services;
 
+import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.dto.FournisseurDto;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface FournisseurService {
     FournisseurDto findById(Long id);
 
     List<FournisseurDto> findAll();
+
+    List<FournisseurDto> findByOrderByIdDesc();
 
     void delete(Long id);
 }

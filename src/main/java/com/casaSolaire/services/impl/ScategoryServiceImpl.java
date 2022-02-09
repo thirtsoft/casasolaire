@@ -101,6 +101,13 @@ public class ScategoryServiceImpl implements ScategoryService {
     }
 
     @Override
+    public List<ScategoryDto> findByOrderByIdDesc() {
+        return scategoryRepository.findByOrderByIdDesc().stream()
+                .map(ScategoryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Scategorie Id is null");

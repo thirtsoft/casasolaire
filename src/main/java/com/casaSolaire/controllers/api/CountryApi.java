@@ -33,7 +33,7 @@ public interface CountryApi {
     })
     ResponseEntity<CountryDto> update(@PathVariable("idCountry") Long id, @RequestBody CountryDto countryDto);
 
-    @GetMapping(value = APP_ROOT + "/countries/{idCountry}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/countries/findById/{idCountry}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Country par ID",
             notes = "Cette méthode permet de chercher une Country par son ID", response = CountryDto.class
     )

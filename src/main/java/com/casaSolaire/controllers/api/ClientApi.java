@@ -25,7 +25,7 @@ public interface ClientApi {
     })
     ResponseEntity<ClientDto> save(@RequestBody ClientDto clientDto);
 
-    @GetMapping(value = APP_ROOT + "/clients/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/clients/findById/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Client par ID",
             notes = "Cette méthode permet de chercher un Client par son ID", response = ClientDto.class
     )
@@ -43,6 +43,15 @@ public interface ClientApi {
             @ApiResponse(code = 200, message = "La liste des Clients / une liste vide")
     })
     List<ClientDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/clients/searchAllClientsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Clients par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Clients par ordre descroissante",
+            responseContainer = "List<ClientDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Categories  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ClientDto>> getAllClientsOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/clients/delete/{idClient}")
     @ApiOperation(value = "Supprimer un Client par son ID",

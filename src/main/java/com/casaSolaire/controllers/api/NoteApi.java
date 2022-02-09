@@ -24,7 +24,7 @@ public interface NoteApi {
     })
     ResponseEntity<NoteDto> save(@RequestBody NoteDto noteDto);
 
-    @GetMapping(value = APP_ROOT + "/notes/{idNote}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/notes/findById/{idNote}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Note par ID",
             notes = "Cette méthode permet de chercher un Note par son ID", response = NoteDto.class
     )

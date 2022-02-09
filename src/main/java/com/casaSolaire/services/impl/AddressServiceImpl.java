@@ -60,6 +60,13 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public List<AddressDto> findByOrderByIdDesc() {
+        return addressRepository.findByOrderByIdDesc().stream()
+                .map(AddressDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Address Id is null");

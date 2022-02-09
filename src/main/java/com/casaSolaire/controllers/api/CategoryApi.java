@@ -1,5 +1,6 @@
 package com.casaSolaire.controllers.api;
 
+import com.casaSolaire.dto.AddressDto;
 import com.casaSolaire.dto.CategoryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -35,7 +36,7 @@ public interface CategoryApi {
     ResponseEntity<CategoryDto> update(@PathVariable("idCategory") Long id, @RequestBody CategoryDto categoryDto);
 
 
-    @GetMapping(value = APP_ROOT + "/categories/{idCategory}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/categories/findById/{idCategory}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Category par ID",
             notes = "Cette méthode permet de chercher une Category par son ID", response = CategoryDto.class
     )
@@ -64,6 +65,15 @@ public interface CategoryApi {
             @ApiResponse(code = 200, message = "La liste des Categories / une liste vide")
     })
     List<CategoryDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/categories/searchAllCategoriesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Categories par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Address par ordre descroissante",
+            responseContainer = "List<CategoryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Categories  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CategoryDto>> getAllCategoriesOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/categories/delete/{idCategory}")
     @ApiOperation(value = "Supprimer une Category par son ID",

@@ -90,6 +90,13 @@ public class FournisseurServiceImpl implements FournisseurService {
     }
 
     @Override
+    public List<FournisseurDto> findByOrderByIdDesc() {
+        return fournisseurRepository.findByOrderByIdDesc().stream()
+                .map(FournisseurDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Fournisseur Id is null");

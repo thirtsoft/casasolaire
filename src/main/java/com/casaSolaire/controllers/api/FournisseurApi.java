@@ -1,5 +1,6 @@
 package com.casaSolaire.controllers.api;
 
+import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.dto.FournisseurDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -35,7 +36,7 @@ public interface FournisseurApi {
     ResponseEntity<FournisseurDto> update(@PathVariable("idFournisseur") Long id, @RequestBody FournisseurDto fournisseurDto);
 
 
-    @GetMapping(value = APP_ROOT + "/fournisseurs/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/fournisseurs/findById/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Fournisseur par ID",
             notes = "Cette méthode permet de chercher un Fournisseur par son ID", response = FournisseurDto.class
     )
@@ -53,6 +54,15 @@ public interface FournisseurApi {
             @ApiResponse(code = 200, message = "La liste des Fournisseurs / une liste vide")
     })
     List<FournisseurDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/fournisseurs/searchAllFournisseursOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Clients par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Fournisseurs par ordre descroissante",
+            responseContainer = "List<FournisseurDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Fournisseurs  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete/{idFournisseur}")
     @ApiOperation(value = "Supprimer un Fournisseur par son ID",

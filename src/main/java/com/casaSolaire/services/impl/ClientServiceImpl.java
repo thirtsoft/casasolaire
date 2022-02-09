@@ -85,6 +85,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public List<ClientDto> findByOrderByIdDesc() {
+        return clientRepository.findByOrderByIdDesc().stream()
+                .map(ClientDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Client Id is null");

@@ -65,7 +65,7 @@ public interface CommandeApi {
     })
     ResponseEntity<CommandeDto> updateStatusOfCommande(@RequestParam("status") String status, @PathVariable("id") String id);
 
-    @GetMapping(value = APP_ROOT + "/commandes/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/commandes/findById/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Commande par ID",
             notes = "Cette méthode permet de chercher une Commande par son ID", response = CommandeDto.class
     )

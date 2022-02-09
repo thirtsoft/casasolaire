@@ -49,7 +49,7 @@ public interface ArticleApi {
     })
     ResponseEntity<ArticleDto> update(@PathVariable("idArticle") Long id, @RequestBody ArticleDto articleDto);
 
-    @GetMapping(value = APP_ROOT + "/articles/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/articles/findById/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Artilce par ID",
             notes = "Cette méthode permet de chercher un Artilce par son ID", response = ArticleDto.class
     )

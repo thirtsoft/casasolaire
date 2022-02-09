@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -92,6 +92,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> findAll() {
         return categoryRepository.findAll().stream()
+                .map(CategoryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CategoryDto> findByOrderByIdDesc() {
+        return categoryRepository.findByOrderByIdDesc().stream()
                 .map(CategoryDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }

@@ -4,6 +4,7 @@ import com.casaSolaire.controllers.api.ScategoryApi;
 import com.casaSolaire.dto.ScategoryDto;
 import com.casaSolaire.services.ScategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,6 +46,12 @@ public class ScategoryController implements ScategoryApi {
     @Override
     public List<ScategoryDto> findAll() {
         return scategoryService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<ScategoryDto>> getAllSubCategoriesOrderByIdDesc() {
+        List<ScategoryDto> scategoryDtoList = scategoryService.findByOrderByIdDesc();
+        return new ResponseEntity<>(scategoryDtoList, HttpStatus.OK);
     }
 
     @Override
