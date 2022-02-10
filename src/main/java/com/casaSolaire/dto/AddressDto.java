@@ -40,7 +40,7 @@ public class AddressDto {
                 .zipcode(address.getZipcode())
                 .city(address.getCity())
                 .rue(address.getRue())
-        //        .stateDto(StateDto.fromEntityToDto(address.getState()))
+               .stateDto(StateDto.fromEntityToDto(address.getState()))
                 .build();
     }
 
@@ -53,7 +53,7 @@ public class AddressDto {
         address.setReference(addressDto.getReference());
         address.setCity(addressDto.getCity());
         address.setRue(addressDto.getRue());
-    //    address.setState(StateDto.fromDtoToEntity(addressDto.getStateDto()));
+       address.setState(StateDto.fromDtoToEntity(addressDto.getStateDto()));
         return address;
     }
 }
