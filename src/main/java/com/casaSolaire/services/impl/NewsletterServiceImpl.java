@@ -61,6 +61,11 @@ public class NewsletterServiceImpl implements NewsletterService {
     }
 
     @Override
+    public BigDecimal countNumberOfNewsletterDto() {
+        return newsletterRepository.countNumberOfNewsletters();
+    }
+
+    @Override
     public NewsletterDto findById(Long id) {
         if (id == null) {
             log.error("Newsletter Id is null");

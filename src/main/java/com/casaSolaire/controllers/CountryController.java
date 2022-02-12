@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -37,6 +38,11 @@ public class CountryController implements CountryApi {
     @Override
     public ResponseEntity<CountryDto> findById(Long id) {
         return ResponseEntity.ok(countryService.findById(id));
+    }
+
+    @Override
+    public BigDecimal countNumberOfCountries() {
+        return countryService.countNumberOfCountry();
     }
 
     @Override

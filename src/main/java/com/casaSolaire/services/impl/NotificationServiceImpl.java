@@ -83,6 +83,11 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public BigDecimal countNumberOfNotificationDto() {
+        return notificationRepository.countNumberOfNotification();
+    }
+
+    @Override
     public NotificationDto findById(Long id) {
         if (id == null) {
             log.error("Notification Id is null");

@@ -61,7 +61,6 @@ public interface NewsletterApi {
     })
     ResponseEntity<List<NewsletterDto>> getAllNewslettersOrderByIdDesc();
 
-
     @GetMapping(value = APP_ROOT + "/newsletters/countNumberOfNewsletters", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Newsletter",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de Newsletter")

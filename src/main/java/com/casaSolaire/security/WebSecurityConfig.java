@@ -78,6 +78,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/auth/signUp").permitAll()
                 .antMatchers("/**/auth/registerUser").permitAll()
                 .antMatchers("/**/auth/authenticated").permitAll()
+                .antMatchers("/**/articles/create").permitAll()
+                .antMatchers("/**/articles/createWithFile").permitAll()
                 .antMatchers("/**/articles/searchArticleByKeyword").permitAll()
                 .antMatchers("/**/articles/searchArticleByPrice/**").permitAll()
                 .antMatchers("/**/articles/all").permitAll()
@@ -94,8 +96,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/uploadArticlePhoto/{id}").permitAll()
                 .antMatchers("/**/articles/countNumberOfProductInSubCat/{subCatId}").permitAll()
                 .antMatchers("/**/categories/**").permitAll()
+                .antMatchers("/**/categories/all").permitAll()
+                .antMatchers("/**/categories/searchAllCategoriesOrderByIdDesc").permitAll()
                 .antMatchers("/**/scategories/**").permitAll()
+                .antMatchers("/**/scategories/all").permitAll()
+                .antMatchers("/**/scategories/searchAllSubCategoriesOrderByIdDesc").permitAll()
+                .antMatchers("/**/scategories/findById/{idScategory}").permitAll()
+                .antMatchers("/**/scategories/update/{idScategory}").permitAll()
+                .antMatchers("/**/fournisseurs/create").permitAll()
+                .antMatchers("/**/fournisseurs/findById/{idFournisseur}").permitAll()
+                .antMatchers("/**/fournisseurs/update/{idFournisseur}").permitAll()
                 .antMatchers("/**/fournisseurs/**").permitAll()
+                .antMatchers("/**/fournisseurs/searchAllFournisseursOrderByIdDesc").permitAll()
                 .antMatchers("/**/commandes/create").permitAll()
                 .antMatchers("/**/commandes/all").permitAll()
                 .antMatchers("/**/commandes/countNumberOfCommande").permitAll()
@@ -126,16 +138,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/commandes/updateStatusOfCommande/*").permitAll()
 
-
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()
 
                 .antMatchers("/**/checkout/purchase").permitAll()
 
+                .antMatchers("/**/countries/create").permitAll()
+                .antMatchers("/**/countries/findById/{idCountry}").permitAll()
                 .antMatchers("/**/countries/all").permitAll()
+                .antMatchers("/**/countries/**").permitAll()
+                .antMatchers("/**/countries/searchAllCountryOrderByIdDesc").permitAll()
+                .antMatchers("/**/countries/countNumberOfCountries").permitAll()
                 .antMatchers("/**/fournisseurs/all").permitAll()
-                //     .antMatchers("/**/fournisseurs/**").permitAll()
                 .antMatchers("/**/fournisseurs/countNumberOfFournisseurs").permitAll()
 
                 .antMatchers("/**/lignecommandes/all").permitAll()
@@ -144,8 +159,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/lignecommandes/searchAllLigneCommandesByCommandeId/*").permitAll()
                 .antMatchers("/**/lignecommandes/searchTopLigneCommandesOrderByIdDesc").permitAll()
                 .antMatchers("/**/lignecommandes/findListArticleGroupByIdDesc").permitAll()
-                .antMatchers("/**/scategories/all").permitAll()
+                .antMatchers("/**/states/**").permitAll()
+                .antMatchers("/**/states/create").permitAll()
+                .antMatchers("/**/states/findById/*").permitAll()
+                .antMatchers("/**/states/update/{idState}").permitAll()
                 .antMatchers("/**/states/all").permitAll()
+                .antMatchers("/**/states/searchAllStatesOrderByIdDesc").permitAll()
                 .antMatchers("/**/states/searchStateByCountryCode/**").permitAll()
                 .antMatchers("/**/utilisateurs/all").permitAll()
                 .antMatchers("/**/utilisateurs/findById/{idUtilisateur}").permitAll()
@@ -155,6 +174,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/utilisateurs/*").permitAll()
                 .antMatchers("/**/utilisateurs/updateCustomerProfileByUsername").permitAll()
                 .antMatchers("/**/clients/**").permitAll()
+                .antMatchers("/**/clients/all").permitAll()
+                .antMatchers("/**/clients/searchAllClientsOrderByIdDesc").permitAll()
                 .antMatchers("/**/clients/countNumberOfClient").permitAll()
                 .antMatchers("/**/notifications/**").permitAll()
                 .antMatchers("/**/notifications/all").permitAll()
@@ -164,6 +185,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/notifications/countNumberOfNotificationByProductId/{idProd}").permitAll()
                 .antMatchers("/**/notifications/searchTop4RatingOrderByCreatedDateDescByProductId/{idProd}").permitAll()
+
+
+                .antMatchers("/**/addresses/all").permitAll()
+                .antMatchers("/**/addresses/findById/{idAddress}").permitAll()
+                .antMatchers("/**/addresses/searchAllAddressOrderByIdDesc").permitAll()
+                .antMatchers("/**/addresses/**").permitAll()
+
 
                 .antMatchers("/**/addresslivraisons/all").permitAll()
                 .antMatchers("/**/addresslivraisons/searchAllAddressLivraisonsOrderByIdDesc").permitAll()

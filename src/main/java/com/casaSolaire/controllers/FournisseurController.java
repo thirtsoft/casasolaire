@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -49,6 +50,11 @@ public class FournisseurController implements FournisseurApi {
     public ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc() {
         List<FournisseurDto> fournisseurDtoList = fournisseurService.findByOrderByIdDesc();
         return new ResponseEntity<>(fournisseurDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public BigDecimal countNumberOfFournisseurs() {
+        return fournisseurService.countNumberOfFournisseur();
     }
 
     @Override

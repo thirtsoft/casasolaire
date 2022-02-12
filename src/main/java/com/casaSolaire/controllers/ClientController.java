@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,11 @@ public class ClientController implements ClientApi {
     @Override
     public ResponseEntity<ClientDto> findById(Long id) {
         return ResponseEntity.ok(clientService.findById(id));
+    }
+
+    @Override
+    public BigDecimal countNumberOfClients() {
+        return clientService.countNumberOfClient();
     }
 
     @Override

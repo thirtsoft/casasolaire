@@ -13,6 +13,8 @@ public interface NotificationService {
 
     NotificationDto update(Long idNote, NotificationDto notificationDto);
 
+    BigDecimal countNumberOfNotificationDto();
+
     NotificationDto findById(Long id);
 
     List<NotificationDto> findAll();

@@ -1,6 +1,5 @@
 package com.casaSolaire.controllers.api;
 
-import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.dto.FournisseurDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -9,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.casaSolaire.utils.Constants.APP_ROOT;
@@ -63,6 +63,14 @@ public interface FournisseurApi {
             @ApiResponse(code = 200, message = "La liste des Fournisseurs  par ordre descroissante / une liste vide")
     })
     ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc();
+
+    @GetMapping(value = APP_ROOT + "/fournisseurs/countNumberOfFournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Fournisseurs",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Fournisseurs")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Fournisseurs / le nombre est nulle")
+    })
+    BigDecimal countNumberOfFournisseurs();
 
     @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete/{idFournisseur}")
     @ApiOperation(value = "Supprimer un Fournisseur par son ID",

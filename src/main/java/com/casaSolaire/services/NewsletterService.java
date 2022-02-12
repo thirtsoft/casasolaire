@@ -11,6 +11,9 @@ public interface NewsletterService {
 
     NewsletterDto update(Long id, NewsletterDto newsletterDto);
 
+
+    BigDecimal countNumberOfNewsletterDto();
+
     NewsletterDto findById(Long id);
 
     List<NewsletterDto> findAll();

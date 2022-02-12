@@ -1,6 +1,5 @@
 package com.casaSolaire.controllers.api;
 
-import com.casaSolaire.dto.CategoryDto;
 import com.casaSolaire.dto.ClientDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -9,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.casaSolaire.utils.Constants.APP_ROOT;
@@ -17,7 +17,7 @@ public interface ClientApi {
 
     @PostMapping(value = APP_ROOT + "/clients/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un Client",
-            notes = "Cette méthode permet d'enregistrer et modifier un Client", response = ClientDto.class )
+            notes = "Cette méthode permet d'enregistrer et modifier un Client", response = ClientDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le Client a été crée / modifié"),
             @ApiResponse(code = 400, message = "Aucun Client  crée / modifié")
@@ -35,6 +35,14 @@ public interface ClientApi {
 
     })
     ResponseEntity<ClientDto> findById(@PathVariable("idClient") Long id);
+
+    @GetMapping(value = APP_ROOT + "/clients/countNumberOfClient", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Client",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Client")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Client / le nombre est nulle")
+    })
+    BigDecimal countNumberOfClients();
 
     @GetMapping(value = APP_ROOT + "/clients/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Clients",
@@ -55,7 +63,7 @@ public interface ClientApi {
 
     @DeleteMapping(value = APP_ROOT + "/clients/delete/{idClient}")
     @ApiOperation(value = "Supprimer un Client par son ID",
-            notes = "Cette méthode permet de supprimer un ClientDto par son ID", response = ClientDto.class )
+            notes = "Cette méthode permet de supprimer un ClientDto par son ID", response = ClientDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le Client a été supprimé")
     })

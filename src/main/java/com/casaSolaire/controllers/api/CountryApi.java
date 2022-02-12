@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.casaSolaire.utils.Constants.APP_ROOT;
@@ -42,6 +43,14 @@ public interface CountryApi {
             @ApiResponse(code = 404, message = "Aucun Country n'existe avec cette ID pas dans la BD")
     })
     ResponseEntity<CountryDto> findById(@PathVariable("idCountry") Long id);
+
+    @GetMapping(value = APP_ROOT + "/countries/countNumberOfCountries", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Country",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Client")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Country / le nombre est nulle")
+    })
+    BigDecimal countNumberOfCountries();
 
     @GetMapping(value = APP_ROOT + "/countries/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des countries",

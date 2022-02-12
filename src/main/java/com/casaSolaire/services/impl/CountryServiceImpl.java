@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,6 +59,11 @@ public class CountryServiceImpl implements CountryService {
                         CountryDto.fromDtoToEntity(countryResult)
                 )
         );
+    }
+
+    @Override
+    public BigDecimal countNumberOfCountry() {
+        return countryRepository.countNumberOfCountry();
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.casaSolaire.services;
 
-import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.dto.FournisseurDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface FournisseurService {
@@ -10,6 +10,8 @@ public interface FournisseurService {
     FournisseurDto save(FournisseurDto fournisseurDto);
 
     FournisseurDto update(Long id, FournisseurDto fournisseurDto);
+
+    BigDecimal countNumberOfFournisseur();
 
     FournisseurDto findById(Long id);
 
