@@ -51,7 +51,6 @@ public class ArticleController implements ArticleApi {
 
     }
 
-
     @Override
     public ResponseEntity<ArticleDto> update(Long id, ArticleDto articleDto) {
         articleDto.setId(id);
