@@ -5,11 +5,13 @@ import com.casaSolaire.dto.NoteDto;
 import com.casaSolaire.services.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class NoteController implements NoteApi {
 
     private final NoteService noteService;

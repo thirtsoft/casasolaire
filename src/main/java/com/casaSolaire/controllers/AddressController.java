@@ -4,12 +4,15 @@ import com.casaSolaire.controllers.api.AddressApi;
 import com.casaSolaire.dto.AddressDto;
 import com.casaSolaire.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class AddressController implements AddressApi {
 
     private final AddressService addressService;
@@ -33,6 +36,12 @@ public class AddressController implements AddressApi {
     @Override
     public List<AddressDto> findAll() {
         return addressService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<AddressDto>> getAllAddressesOrderByIdDesc() {
+        List<AddressDto> addressDtoList = addressService.findByOrderByIdDesc();
+        return new ResponseEntity<>(addressDtoList, HttpStatus.OK);
     }
 
     @Override

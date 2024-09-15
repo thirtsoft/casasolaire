@@ -1,8 +1,8 @@
 package com.casaSolaire.repository;
 
-import com.casaSolaire.dto.ArticleDto;
-import com.casaSolaire.dto.NoteDto;
-import com.casaSolaire.dto.UtilisateurDto;
+import com.casaSolaire.models.Article;
+import com.casaSolaire.models.Note;
+import com.casaSolaire.models.Utilisateur;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -21,36 +21,32 @@ public class NoteRepositoryTest {
     @Autowired
     private NoteRepository noteRepository;
 
+    @Autowired
+    private ArticleRepository articleRepository;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
     @Test
     @Rollback(false)
     public void testCreateNote() {
-        String referenceArticle = "Art1";
-        String designation = "Article1";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(referenceArticle);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
-        String username = "thir";
-        String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile);
+        Long idUser = (long) 1;
+        Utilisateur user = utilisateurRepository.findById(idUser).orElse(null);
 
         String reference = "Note1";
         String nombreEtoile = "4etoiles";
         String observation = "bonbon";
-        NoteDto noteDto = new NoteDto();
+        Note noteDto = new Note();
         noteDto.setReference(reference);
         noteDto.setNombreEtoile(nombreEtoile);
         noteDto.setObservation(observation);
-        noteDto.setArticleDto(articleDto);
-        noteDto.setUtilisateurDto(utilisateurDto);
+        noteDto.setArticle(article);
+        noteDto.setUtilisateur(user);
 
-        NoteDto noteDtoResult = NoteDto.fromEntityToDto(
-                noteRepository.save(
-                        NoteDto.fromDtoToEntity(noteDto)
-                )
-        );
+        Note noteDtoResult = noteRepository.save(noteDto);
 
         assertNotNull(noteDtoResult);
 
@@ -59,72 +55,49 @@ public class NoteRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateNote() {
-        String referenceArticle = "Art1";
-        String designation = "Article1";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(referenceArticle);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
-        String username = "thir";
-        String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile);
+        Long idUser = (long) 1;
+        Utilisateur user = utilisateurRepository.findById(idUser).orElse(null);
 
         String reference = "Note1";
         String nombreEtoile = "4etoiles";
         String observation = "bonbon";
-        NoteDto noteDto = new NoteDto();
+        Note noteDto = new Note();
         noteDto.setReference(reference);
         noteDto.setNombreEtoile(nombreEtoile);
         noteDto.setObservation(observation);
-        noteDto.setArticleDto(articleDto);
-        noteDto.setUtilisateurDto(utilisateurDto);
+        noteDto.setArticle(article);
+        noteDto.setUtilisateur(user);
 
-        NoteDto noteDtoResult = NoteDto.fromEntityToDto(
-                noteRepository.save(
-                        NoteDto.fromDtoToEntity(noteDto)
-                )
-        );
+        noteDto.setId((long) 3);
 
-        String referenceNote = "Note1111";
-        noteDto.setReference(referenceNote);
-        noteDto.setId((long) 1);
-        NoteDto.fromEntityToDto(noteRepository.save(NoteDto.fromDtoToEntity(noteDto)));
+        Note noteDtoResult = noteRepository.save(noteDto);
 
-        assertThat(noteDto.getReference()).isEqualTo(referenceNote);
+        assertThat(noteDtoResult.getReference()).isEqualTo(reference);
 
     }
 
     @Test
     public void testFindById() {
-        String referenceArticle = "Art1";
-        String designation = "Article1";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(referenceArticle);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
-        String username = "thir";
-        String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile);
+        Long idUser = (long) 1;
+        Utilisateur user = utilisateurRepository.findById(idUser).orElse(null);
 
         String reference = "Note1";
         String nombreEtoile = "4etoiles";
         String observation = "bonbon";
-        NoteDto noteDto = new NoteDto();
+        Note noteDto = new Note();
         noteDto.setReference(reference);
         noteDto.setNombreEtoile(nombreEtoile);
         noteDto.setObservation(observation);
-        noteDto.setArticleDto(articleDto);
-        noteDto.setUtilisateurDto(utilisateurDto);
+        noteDto.setArticle(article);
+        noteDto.setUtilisateur(user);
 
-        NoteDto noteDtoResult = NoteDto.fromEntityToDto(
-                noteRepository.save(
-                        NoteDto.fromDtoToEntity(noteDto)
-                )
-        );
+        Note noteDtoResult = noteRepository.save(noteDto);
 
         boolean isExistNote = noteRepository.findById(noteDtoResult.getId()).isPresent();
 
@@ -134,86 +107,62 @@ public class NoteRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String referenceArticle = "Art1";
-        String designation = "Article1";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(referenceArticle);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
-        String username = "thir";
-        String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile);
+        Long idUser = (long) 1;
+        Utilisateur user = utilisateurRepository.findById(idUser).orElse(null);
 
         String reference = "Note1";
         String nombreEtoile = "4etoiles";
         String observation = "bonbon";
-        NoteDto noteDto = new NoteDto();
+        Note noteDto = new Note();
         noteDto.setReference(reference);
         noteDto.setNombreEtoile(nombreEtoile);
         noteDto.setObservation(observation);
-        noteDto.setArticleDto(articleDto);
-        noteDto.setUtilisateurDto(utilisateurDto);
+        noteDto.setArticle(article);
+        noteDto.setUtilisateur(user);
 
-        NoteDto noteDtoResult = NoteDto.fromEntityToDto(
-                noteRepository.save(
-                        NoteDto.fromDtoToEntity(noteDto)
-                )
-        );
+        noteRepository.save(noteDto);
 
         String referenceNote = "Note1";
         String nombreEtoileNote = "4etoiles";
         String observationNote = "bonbon";
-        NoteDto noteDto1 = new NoteDto();
-        noteDto1.setReference(referenceNote);
-        noteDto1.setNombreEtoile(nombreEtoileNote);
-        noteDto1.setObservation(observationNote);
-        noteDto1.setArticleDto(articleDto);
-        noteDto1.setUtilisateurDto(utilisateurDto);
+        Note noteDto2 = new Note();
+        noteDto2.setReference(referenceNote);
+        noteDto2.setNombreEtoile(nombreEtoileNote);
+        noteDto2.setObservation(observationNote);
+        noteDto2.setArticle(article);
+        noteDto2.setUtilisateur(user);
 
-        NoteDto noteDtoResult1 = NoteDto.fromEntityToDto(
-                noteRepository.save(
-                        NoteDto.fromDtoToEntity(noteDto1)
-                )
-        );
+        noteRepository.save(noteDto2);
 
-        List<?> notes = noteRepository.findAll();
+        List<Note> notes = noteRepository.findAll();
 
-        assertThat(notes).size().isGreaterThan(0);
+        assertThat(notes).size().isGreaterThan(1);
 
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        String referenceArticle = "Art1";
-        String designation = "Article1";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(referenceArticle);
-        articleDto.setDesignation(designation);
+        Long idArticle = (long) 1;
+        Article article = articleRepository.findById(idArticle).orElse(null);
 
-        String username = "thir";
-        String mobile = "779440310";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile);
+        Long idUser = (long) 1;
+        Utilisateur user = utilisateurRepository.findById(idUser).orElse(null);
 
         String reference = "Note1";
         String nombreEtoile = "4etoiles";
         String observation = "bonbon";
-        NoteDto noteDto = new NoteDto();
+        Note noteDto = new Note();
         noteDto.setReference(reference);
         noteDto.setNombreEtoile(nombreEtoile);
         noteDto.setObservation(observation);
-        noteDto.setArticleDto(articleDto);
-        noteDto.setUtilisateurDto(utilisateurDto);
+        noteDto.setArticle(article);
+        noteDto.setUtilisateur(user);
 
-        NoteDto noteDtoResult = NoteDto.fromEntityToDto(
-                noteRepository.save(
-                        NoteDto.fromDtoToEntity(noteDto)
-                )
-        );
+        Note noteDtoResult = noteRepository.save(noteDto);
 
         boolean isExistBeforeDelete = noteRepository.findById(noteDtoResult.getId()).isPresent();
 

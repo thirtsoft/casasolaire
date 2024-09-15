@@ -1,8 +1,7 @@
 package com.casaSolaire.repository;
 
-import com.casaSolaire.dto.ClientDto;
-import com.casaSolaire.dto.CommandeDto;
 import com.casaSolaire.enums.Status;
+import com.casaSolaire.models.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,37 +21,25 @@ public class CommandeRepositoryTest {
     @Autowired
     private CommandeRepository commandeRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @Test
     @Rollback(false)
     public void testCreateCommande() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 123456L;
         double total = 12000;
-        Status status = Status.PAYEE;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        String status = "PAYEE";
+        Commande commandeDto = new Commande();
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
-        commandeDto.setClientDto(clientDto);
+        commandeDto.setClient(client);
 
-        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(
-                commandeRepository.save(
-                        CommandeDto.fromDtoToEntity(commandeDto)
-                )
-        );
+        Commande commandeDtoResult = commandeRepository.save(commandeDto);
 
         assertNotNull(commandeDtoResult);
 
@@ -60,74 +48,43 @@ public class CommandeRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateCommande() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 12L;
         double total = 12000;
-        Status status = Status.PAYEE;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        String status = "PAYEE";
+        Commande commandeDto = new Commande();
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
-        commandeDto.setClientDto(clientDto);
+        commandeDto.setClient(client);
 
-        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(
-                commandeRepository.save(
-                        CommandeDto.fromDtoToEntity(commandeDto)
-                )
-        );
+       // Commande commandeDtoResult = commandeRepository.save(commandeDto);
 
-        Status status1 = Status.ENCOURS;
-        commandeDto.setStatus(status1);
-        commandeDto.setId((long) 1);
-        CommandeDto.fromEntityToDto(commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto)));
+        commandeDto.setId((long) 3);
 
-        assertThat(commandeDto.getStatus()).isEqualTo(status1);
+        Commande utilisateurDtoResult = commandeRepository.save(commandeDto);
+
+        assertThat(utilisateurDtoResult.getStatus()).isEqualTo(status);
 
     }
 
     @Test
     public void testFindById() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 12L;
         double total = 12000;
-        Status status = Status.PAYEE;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        String status = "PAYEE";
+        Commande commandeDto = new Commande();
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
-        commandeDto.setClientDto(clientDto);
+        commandeDto.setClient(client);
 
-        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(
-                commandeRepository.save(
-                        CommandeDto.fromDtoToEntity(commandeDto)
-                )
-        );
+        Commande commandeDtoResult = commandeRepository.save(commandeDto);
 
         boolean isExistCommande = commandeRepository.findById(commandeDtoResult.getId()).isPresent();
 
@@ -137,87 +94,51 @@ public class CommandeRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 12L;
         double total = 12000;
-        Status status = Status.PAYEE;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        String status = "PAYEE";
+        Commande commandeDto = new Commande();
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
-        commandeDto.setClientDto(clientDto);
+        commandeDto.setClient(client);
+        commandeRepository.save(commandeDto);
 
-        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(
-                commandeRepository.save(
-                        CommandeDto.fromDtoToEntity(commandeDto)
-                )
-        );
+        Long number1 = 5L;
+        double total1 = 12000;
+        String status1 = "PAYEE";
+        Commande commandeDto1 = new Commande();
+        commandeDto1.setNumeroCommande(number1);
+        commandeDto1.setTotalCommande(total1);
+        commandeDto1.setStatus(status1);
+        commandeDto1.setClient(client);
+        commandeRepository.save(commandeDto1);
 
-        String number1 = "Com2";
-        double total2 = 1222000;
-        Status status2 = Status.VALIDEE;
-        CommandeDto commandeDto1 = new CommandeDto();
-        commandeDto1.setNumber(number1);
-        commandeDto1.setTotal(total2);
-        commandeDto1.setStatus(status2);
-        commandeDto1.setClientDto(clientDto);
+        List<Commande> commandeList = commandeRepository.findAll();
 
-        CommandeDto commandeDtoResult1 = CommandeDto.fromEntityToDto(
-                commandeRepository.save(
-                        CommandeDto.fromDtoToEntity(commandeDto1)
-                )
-        );
-
-        List<?> commandes = commandeRepository.findAll();
-
-        assertThat(commandes).size().isGreaterThan(0);
+        assertThat(commandeList).size().isGreaterThan(0);
 
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        String reference = "CLT1";
-        String firstName = "tairou";
-        String lastName = "diallo";
-        String email = "thirdiallo@gmail.com";
-        String mobile = "779440310";
-        String address = "USA";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setReference(reference);
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
-        clientDto.setEmail(email);
-        clientDto.setMobile(mobile);
-        clientDto.setAddress(address);
+        Long idClient = (long) 1;
+        Client client = clientRepository.findById(idClient).orElse(null);
 
-        String number = "Com1";
+        Long number = 12L;
         double total = 12000;
-        Status status = Status.PAYEE;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setNumber(number);
-        commandeDto.setTotal(total);
+        String status = "PAYEE";
+        Commande commandeDto = new Commande();
+        commandeDto.setNumeroCommande(number);
+        commandeDto.setTotalCommande(total);
         commandeDto.setStatus(status);
-        commandeDto.setClientDto(clientDto);
+        commandeDto.setClient(client);
 
-        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(
-                commandeRepository.save(
-                        CommandeDto.fromDtoToEntity(commandeDto)
-                )
-        );
+        Commande commandeDtoResult = commandeRepository.save(commandeDto);
 
         boolean isExistBeforeDelete = commandeRepository.findById(commandeDtoResult.getId()).isPresent();
 
@@ -228,6 +149,7 @@ public class CommandeRepositoryTest {
         assertTrue(isExistBeforeDelete);
 
         assertFalse(notExistAfterDelete);
+
 
     }
 

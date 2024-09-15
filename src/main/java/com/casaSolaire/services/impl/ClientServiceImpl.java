@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,6 +39,36 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public ClientDto update(Long id, ClientDto clientDto) {
+        if (!clientRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Client not found");
+        }
+
+        Optional<Client> client = clientRepository.findById(id);
+
+        if (!client.isPresent()) {
+            throw new ResourceNotFoundException("Client not found");
+        }
+
+        ClientDto clientDTOResult = ClientDto.fromEntityToDto(client.get());
+        clientDTOResult.setFirstName(clientDto.getFirstName());
+        clientDTOResult.setLastName(clientDto.getLastName());
+        clientDTOResult.setMobile(clientDto.getMobile());
+        clientDTOResult.setEmail(clientDto.getEmail());
+
+        return ClientDto.fromEntityToDto(
+                clientRepository.save(
+                        ClientDto.fromDtoToEntity(clientDTOResult)
+                )
+        );
+    }
+
+    @Override
+    public BigDecimal countNumberOfClient() {
+        return clientRepository.countNumberOfClient();
+    }
+
+    @Override
     public ClientDto findById(Long id) {
         if (id == null) {
             log.error("Client Id is null");
@@ -55,6 +86,13 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<ClientDto> findAll() {
         return clientRepository.findAll().stream()
+                .map(ClientDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ClientDto> findByOrderByIdDesc() {
+        return clientRepository.findByOrderByIdDesc().stream()
                 .map(ClientDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }

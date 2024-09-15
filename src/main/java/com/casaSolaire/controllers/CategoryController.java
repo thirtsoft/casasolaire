@@ -1,15 +1,19 @@
 package com.casaSolaire.controllers;
 
 import com.casaSolaire.controllers.api.CategoryApi;
+import com.casaSolaire.dto.AddressDto;
 import com.casaSolaire.dto.CategoryDto;
 import com.casaSolaire.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class CategoryController implements CategoryApi {
 
     private final CategoryService categoryService;
@@ -26,6 +30,12 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
+    public ResponseEntity<CategoryDto> update(Long id, CategoryDto categoryDto) {
+        categoryDto.setId(id);
+        return ResponseEntity.ok(categoryService.save(categoryDto));
+    }
+
+    @Override
     public ResponseEntity<CategoryDto> findById(Long id) {
         return ResponseEntity.ok(categoryService.findById(id));
     }
@@ -38,6 +48,12 @@ public class CategoryController implements CategoryApi {
     @Override
     public List<CategoryDto> findAll() {
         return categoryService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<CategoryDto>> getAllCategoriesOrderByIdDesc() {
+        List<CategoryDto> categoryDtoList = categoryService.findByOrderByIdDesc();
+        return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
     }
 
     @Override

@@ -1,15 +1,20 @@
 package com.casaSolaire.controllers;
 
 import com.casaSolaire.controllers.api.ClientApi;
+import com.casaSolaire.dto.CategoryDto;
 import com.casaSolaire.dto.ClientDto;
 import com.casaSolaire.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class ClientController implements ClientApi {
 
     private final ClientService clientService;
@@ -31,8 +36,19 @@ public class ClientController implements ClientApi {
     }
 
     @Override
+    public BigDecimal countNumberOfClients() {
+        return clientService.countNumberOfClient();
+    }
+
+    @Override
     public List<ClientDto> findAll() {
         return clientService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<ClientDto>> getAllClientsOrderByIdDesc() {
+        List<ClientDto> clientDtoList = clientService.findByOrderByIdDesc();
+        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
     }
 
     @Override

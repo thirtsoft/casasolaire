@@ -38,6 +38,33 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    public NoteDto update(Long id, NoteDto noteDto) {
+        if (!noteRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Note not found");
+        }
+
+        Optional<Note> note = noteRepository.findById(id);
+
+        if (!note.isPresent()) {
+            throw new ResourceNotFoundException("Note not found");
+        }
+
+        NoteDto noteDTOResult = NoteDto.fromEntityToDto(note.get());
+        noteDTOResult.setReference(noteDto.getReference());
+        noteDTOResult.setNombreEtoile(noteDto.getNombreEtoile());
+        noteDTOResult.setObservation(noteDto.getObservation());
+
+        noteDTOResult.setArticleDto(noteDto.getArticleDto());
+        noteDTOResult.setUtilisateurDto(noteDto.getUtilisateurDto());
+
+        return NoteDto.fromEntityToDto(
+                noteRepository.save(
+                        NoteDto.fromDtoToEntity(noteDTOResult)
+                )
+        );
+    }
+
+    @Override
     public NoteDto findById(Long id) {
         if (id == null) {
             log.error("Note Id is null");

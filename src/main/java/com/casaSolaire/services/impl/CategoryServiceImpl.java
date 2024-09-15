@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -32,6 +32,30 @@ public class CategoryServiceImpl implements CategoryService {
         return CategoryDto.fromEntityToDto(
                 categoryRepository.save(
                         CategoryDto.fromDtoToEntity(categoryDto)
+                )
+        );
+    }
+
+    @Override
+    public CategoryDto update(Long id, CategoryDto categoryDto) {
+        if (!categoryRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Category not found");
+        }
+
+        Optional<Category> category = categoryRepository.findById(id);
+
+        if (!category.isPresent()) {
+            throw new ResourceNotFoundException("Category not found");
+        }
+
+        CategoryDto categoryResult = CategoryDto.fromEntityToDto(category.get());
+
+        categoryResult.setCode(categoryDto.getCode());
+        categoryResult.setDesignation(categoryDto.getDesignation());
+
+        return CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryResult)
                 )
         );
     }
@@ -68,6 +92,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryDto> findAll() {
         return categoryRepository.findAll().stream()
+                .map(CategoryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CategoryDto> findByOrderByIdDesc() {
+        return categoryRepository.findByOrderByIdDesc().stream()
                 .map(CategoryDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }

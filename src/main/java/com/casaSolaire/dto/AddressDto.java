@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,15 +19,16 @@ public class AddressDto {
 
     private Long id;
 
-    private String code;
+    private String reference;
+
+    private String zipcode;
 
     private String city;
 
     private String rue;
 
-    private String town;
+    private StateDto stateDto;
 
-    private String country;
 
     public static AddressDto fromEntityToDto(Address address) {
         if (address == null) {
@@ -30,11 +36,11 @@ public class AddressDto {
         }
         return AddressDto.builder()
                 .id(address.getId())
-                .code(address.getCode())
+                .reference(address.getReference())
+                .zipcode(address.getZipcode())
                 .city(address.getCity())
                 .rue(address.getRue())
-                .town(address.getTown())
-                .country(address.getCountry())
+               .stateDto(StateDto.fromEntityToDto(address.getState()))
                 .build();
     }
 
@@ -44,12 +50,10 @@ public class AddressDto {
         }
         Address address = new Address();
         address.setId(addressDto.getId());
-        address.setCode(addressDto.getCode());
+        address.setReference(addressDto.getReference());
         address.setCity(addressDto.getCity());
         address.setRue(addressDto.getRue());
-        address.setTown(addressDto.getTown());
-        address.setCountry(addressDto.getCountry());
-
+       address.setState(StateDto.fromDtoToEntity(addressDto.getStateDto()));
         return address;
     }
 }

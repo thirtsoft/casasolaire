@@ -13,5 +13,7 @@ public interface AddressService {
 
     List<AddressDto> findAll();
 
+    List<AddressDto> findByOrderByIdDesc();
+
     void delete(Long id);
 }

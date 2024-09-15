@@ -30,7 +30,23 @@ public class FournisseurDto {
 
     private String rue;
 
+    private String subject;
+
+    private String message;
+
     private ArticleDto articleDto;
+
+    public FournisseurDto(Long id, String reference, String firstName, String lastName,
+                          String email, String telephone,
+                          ArticleDto articleDto) {
+        this.id = id;
+        this.reference = reference;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.telephone = telephone;
+        this.articleDto = articleDto;
+    }
 
     public static FournisseurDto fromEntityToDto(Fournisseur fournisseur) {
         if (fournisseur == null) {
@@ -46,6 +62,8 @@ public class FournisseurDto {
                 .city(fournisseur.getCity())
                 .town(fournisseur.getTown())
                 .rue(fournisseur.getRue())
+                .subject(fournisseur.getSubject())
+                .message(fournisseur.getMessage())
                 .articleDto(ArticleDto.fromEntityToDto(fournisseur.getArticle()))
                 .build();
     }
@@ -64,6 +82,9 @@ public class FournisseurDto {
         fournisseur.setCity(fournisseurDto.getCity());
         fournisseur.setTown(fournisseurDto.getTown());
         fournisseur.setRue(fournisseurDto.getRue());
+        fournisseur.setSubject(fournisseurDto.getSubject());
+        fournisseur.setMessage(fournisseurDto.getMessage());
+        fournisseur.setArticle(ArticleDto.fromDtoToEntity(fournisseurDto.getArticleDto()));
 
         return fournisseur;
     }
